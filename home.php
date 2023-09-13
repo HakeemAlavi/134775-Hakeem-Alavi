@@ -57,6 +57,7 @@ if($email != false && $password != false){
         font-size: 50px;
         font-weight: 600;
     }
+    
     </style>
 </head>
 <body>
@@ -65,6 +66,5 @@ if($email != false && $password != false){
     <button type="button" class="btn btn-light"><a href="logout-user.php">Logout</a></button>
     </nav>
     <h1>Welcome <?php echo $fetch_info['name'] ?></h1>
-    
 </body>
 </html>
