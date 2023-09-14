@@ -30,19 +30,22 @@ if($email != false && $password != false){
     <style>
     @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
     nav{
-        padding-left: 100px!important;
-        padding-right: 100px!important;
+        padding-left: 50px!important;
+        padding-right: 50px!important;
+        padding-top: 15px!important;
+        padding-bottom: 15px!important;
         background: #3deb6c;
         font-family: 'Poppins', sans-serif;
     } 
     nav a.navbar-brand{
         color: #fff;
-        font-size: 30px!important;
+        font-size: 25px!important;
         font-weight: 500;
     }
     button a{
         color: #3deb6c;
         font-weight: 500;
+        border-radius: 16px;
     }
     button a:hover{
         text-decoration: none;
@@ -62,7 +65,8 @@ if($email != false && $password != false){
 </head>
 <body>
     <nav class="navbar">
-    <a class="navbar-brand" href="#">Cholera</a>
+    <a href="home.php"><img src="media/pharmacy.png" style="width:40px;height:40px;"></a>
+    
     <button type="button" class="btn btn-light"><a href="logout-user.php">Logout</a></button>
     </nav>
     <h1>Welcome <?php echo $fetch_info['name'] ?></h1>

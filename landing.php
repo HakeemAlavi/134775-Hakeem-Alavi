@@ -1,55 +1,76 @@
-
 <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>LANDING PAGE</title>
-	<link rel="stylesheet" href="landing-css/style.css">
-	<link rel="stylesheet" href="landing-css/tooltip.css">
-	
-	
-</head>
-<body>
-	<section>
-		<div class="circle"></div>
-		<header>
-			<a href="#"><img src="media/logo.png" class="logo" style="width:90px;height:75px;"></a>
-			<ul>
-				<li><a href="landing.php">Home</a></li>
-				<li><a href="signup-user.php">Sign Up</a></li>
-				<li><a href="login-user.php">Login</a></li>
-			</ul>
-		</header>
-		<div class="content">
-			<div class="textBox">
-				<h2><br>Say no to Cholera!<br>Educate to eradicate; revolutionizing<br> <span> Cholera Management</span></h2><br>
-				<p>
-                At CholeraCare, we're dedicated to transforming the way cholera is managed. Our web application offers a comprehensive suite of tools and resources to streamline cholera detection and prevention. Join us in the fight against cholera today!</p>
-				<a href="#">Get Started Now</a><br><br>
-			
-		</div>
-		<div class="imgBox">
-			<img src="media/cholera.jpg" class="choleracare" style="width:600px;height:400px;">
-		</div>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CholeraCare Landing Page</title>
+    <link rel="stylesheet" href="landing-css/style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="big-wrapper light">
+        <img src="./img/shape.png" alt="" class="shape" />
 
-		<div class="thumb">
-			<!-- <a class="tooltip">Lorem ipsum</a> -->
-			<li data-tippy-content="Phone number: 0713289333"><img src="img/thumb4.png" style="width:45px;height:45px;">
-			</div>
-		
-		<div class="thumb2">
-			<li data-tippy-content="E-mail: totoclinic@gmail.com"><img src="img/thumb5.png" style="width:55px;height:47px;">
-			</div>
-		
-		<div class="thumb3">
-			<li data-tippy-content="Linked In profile: Mohammed Zahir"><img src="img/thumb7.png" style="width:45px;height:45px;">		
-			</div>
+        <header>
+          <div class="container">
+            <div class="logo">
+            <a href="landing.php"><img src="media/pharmacy.png" alt="Logo"/></a>
+              <h3>CholeraCare</h3>
+            </div>
 
-	</section>
+            <div class="links">
+              <ul>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">News</a></li>
+                <li><a href="#">Testimonials</a></li>
+                <li><a href="signup-user.php" class="btn">Sign up</a></li>
+              </ul>
+            </div>
 
-	<script src="https://unpkg.com/popper.js@1"></script>
-	<script src="https://unpkg.com/tippy.js@4"></script>
+            <div class="overlay"></div>
 
-	<script src="./js/main.js"></script>
-</body>
+            <div class="hamburger-menu">
+              <div class="bar"></div>
+            </div>
+          </div>
+        </header>
+
+        <div class="showcase-area">
+          <div class="container">
+            <div class="left">
+              <div class="big-title">
+                <h1>Say no to Cholera,</h1>
+                <h1>Educate to eradicate.</h1>
+              </div>
+              <p class="text">
+			  At CholeraCare, we're dedicated to transforming the way cholera is managed. Our web application offers a comprehensive suite of tools and resources to streamline cholera detection and prevention. Join us in the fight against cholera today!
+              </p>
+              <div class="cta">
+                <a href="login-user.php" class="btn">Get started</a>
+              </div>
+            </div>
+
+            <div class="right">
+              <img src="media/cholera.jpg" alt="Cholera Image" class="person" />
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="bottom-area">
+          <div class="container">
+            <button class="toggle-btn">
+              <i class="far fa-moon"></i>
+              <i class="far fa-sun"></i>
+            </button>
+          </div>
+        </div> -->
+      </div>
+    </main>
+
+    <!-- JavaScript Files -->
+
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <script src="landing-css/app.js"></script>
+  </body>
 </html>
