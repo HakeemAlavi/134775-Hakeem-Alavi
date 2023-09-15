@@ -21,7 +21,7 @@
 
             <div class="links">
               <ul>
-                <li><a href="#">Features</a></li>
+                <li><a href="features.php">Features</a></li>
                 <li><a href="#">News</a></li>
                 <li><a href="#">Testimonials</a></li>
                 <li><a href="signup-user.php" class="btn">Sign up</a></li>

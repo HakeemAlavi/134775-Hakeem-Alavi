@@ -62,7 +62,7 @@ a {
   max-width: 81rem;
   width: 100%;
   margin: 0 auto;
-  padding: 0 3rem;
+  padding: 0 2rem;
   z-index: 10;
 }
 
@@ -396,3 +396,5 @@ header .container {
     font-size: 0.8rem;
   }
 }
+
+
