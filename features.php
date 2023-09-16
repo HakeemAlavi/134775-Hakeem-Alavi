@@ -15,6 +15,14 @@
     />
     <!-- Stylesheet -->
     <link rel="stylesheet" href="landing-css/style.css" />
+    <style>
+      section {
+        height: 140vh;
+        width: 100%;
+        display: grid;
+        place-items: center;
+      }
+    </style>
     
   </head>
   <body>
@@ -51,36 +59,33 @@
         <div class="column">
           <div class="card">
             <div class="icon-wrapper">
-              <i class="fas fa-hammer"></i>
+              <i class="fa-solid fa-newspaper"></i>
             </div>
-            <h3>Service Heading</h3>
+            <h3>Latest News</h3>
             <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam
-              consequatur necessitatibus eaque.
+            Stay informed with real-time updates on cholera outbreaks and developments.
             </p>
           </div>
         </div>
         <div class="column">
           <div class="card">
             <div class="icon-wrapper">
-              <i class="fas fa-brush"></i>
+            <i class="fa-solid fa-vial"></i>
             </div>
-            <h3>Service Heading</h3>
+            <h3>Symptoms Alignment</h3>
             <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam
-              consequatur necessitatibus eaque.
+            Quickly identify and input cholera symptoms and receive instant results for better diagnosis.
             </p>
           </div>
         </div>
         <div class="column">
           <div class="card">
             <div class="icon-wrapper">
-              <i class="fas fa-wrench"></i>
+              <i class="fa-solid fa-robot"></i>
             </div>
-            <h3>Service Heading</h3>
+            <h3>CholeraCare Chatbot</h3>
             <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam
-              consequatur necessitatibus eaque.
+            Get instant answers and support through our interactive cholera chatbot for all your queries.
             </p>
           </div>
         </div>
