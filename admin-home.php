@@ -191,7 +191,11 @@ if($email != false && $password != false){
         <h2>CholeraCare</h2>
       </div>
       <ul class="links">
-        
+        <li>
+          <span class="material-symbols-outlined">group</span>
+          <a href="admin/admin-panel.php">Admin Panel </a>
+        </li>
+        <li>
         <li>
           <span class="material-symbols-outlined">dashboard</span>
           <a href="#">Dashboard</a>
@@ -210,10 +214,7 @@ if($email != false && $password != false){
           <span class="material-symbols-outlined">person</span>
           <a href="#">Designer</a>
         </li>
-        <li>
-          <span class="material-symbols-outlined">group</span>
-          <a href="#">Developer </a>
-        </li>
+        
         <li>
           <span class="material-symbols-outlined">ambient_screen</span>
           <a href="#">Magic Build</a>
