@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
         nav{
@@ -44,7 +45,7 @@
         }
         .users {
             width: fit-content;
-            transform: translate(40%, 0%);
+            transform: translate(30%, 0%);
         }
         table {
             width: 100%;
@@ -59,6 +60,7 @@
         th {
             padding:10px 16px;
             text-align: center;
+            
         }
 
         th {
@@ -206,8 +208,9 @@
         <th class="text-center">No.</th>
         <th class="text-center">Name </th>
         <th class="text-center">Email</th>
-        <th class="text-center">Verification Status</th>
+        <th class="text-center">Status</th>
         <th class="text-center">Role</th>
+        <th class="text-center" colspan="2">Action</th>
       </tr>
     </thead>
     <?php
@@ -225,6 +228,8 @@
       <td><?=$row["email"]?></td>
       <td><?=$row["status"]?></td>
       <td><?=$row["authorization"]?></td>
+      <td><button class="btn btn-primary" style="height:35px" onclick="userEditForm('<?=$row['id']?>')">Edit</button></td>
+      <td><button class="btn btn-danger" style="height:35px"  onclick="userDelete('<?=$row['id']?>')">Delete</button></td>
     </tr>
     <?php
             $count=$count+1;
@@ -297,8 +302,7 @@
       </ul>
     </aside>
 
-<script type="text/javascript" src="./assets/js/ajaxWork.js"></script>    
-<script type="text/javascript" src="./assets/js/script.js"></script>
+<script type="text/javascript" src="../js/functions.js"></script>    
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
