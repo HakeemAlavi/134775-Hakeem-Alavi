@@ -45,7 +45,7 @@
         }
         .users {
             width: fit-content;
-            transform: translate(30%, 0%);
+            transform: translate(20%, 0%);
         }
         table {
             width: 100%;
@@ -198,8 +198,9 @@
 <body> 
 <nav class="navbar">
     <a href="../admin-home.php"><img src="../media/pharmacy.png" style="width:40px;height:40px;"></a>
-    <button type="button" class="btn btn-light"><a href="logout-user.php">Logout</a></button>
-</nav>       
+    <button type="button" class="btn btn-light"><a href="../logout-user.php">Logout</a></button>
+</nav>    
+<div id="main-content" class="container allContent-section"> 
 <div class="users" >
   <h1>All Users</h1>
   <table class="table">
@@ -238,6 +239,7 @@
     }
     ?>
   </table>
+</div>
 </div>
 <aside class="sidebar">
       <div class="logo">
