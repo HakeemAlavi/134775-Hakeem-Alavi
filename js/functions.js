@@ -4,7 +4,6 @@ function showUsers(){
         method:"post",
         data:{record:1},
         success:function(data){
-            //$('.users').html(data);
             $('.allContent-section').load("../admin/view-users.php .users");
 
         }
@@ -24,3 +23,16 @@ function userDelete(id){
         }
     });
 }
+
+//edit user data
+function userEditForm(id){
+    $.ajax({
+        url:"../admin/edit-users.php",
+        method:"post",
+        data:{record:id},
+        success:function(data){
+            $('.allContent-section').load("../admin/edit-users.php .allContent-section");
+        }
+    });
+}
+

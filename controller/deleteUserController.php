@@ -8,7 +8,7 @@
     $data=mysqli_query($con,$query);
 
     if($data){
-        echo"variation Deleted";
+        echo"user Deleted";
     }
     else{
         echo"Not able to delete";
