@@ -1,31 +1,20 @@
-<?php require_once "controllerUserData.php"; ?>
-<?php 
-$email = $_SESSION['email'];
-$password = $_SESSION['password'];
-if($email != false && $password != false){
-    $sql = "SELECT * FROM usertable WHERE email = '$email'";
-    $run_Sql = mysqli_query($con, $sql);
-    if($run_Sql){
-        $fetch_info = mysqli_fetch_assoc($run_Sql);
-        $status = $fetch_info['status'];
-        $code = $fetch_info['code'];
-        if($status == "verified"){
-            if($code != 0){
-                header('Location: reset-code.php');
-            }
-        }else{
-            header('Location: user-otp.php');
-        }
-    }
-}else{
-    header('Location: login-user.php');
-}
+<?php
+include "../connection.php";
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title><?php echo $fetch_info['name'] ?> | Home</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"> -->
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -53,7 +42,7 @@ if($email != false && $password != false){
     button a:hover{
         text-decoration: none;
     }
-    h1{
+    /* h1{
         position: absolute;
         top: 20%;
         left: 50%;
@@ -63,7 +52,7 @@ if($email != false && $password != false){
         font-size: 28px;
         font-weight: 600;
         font-family: 'Poppins';
-    }
+    } */
     * {
             margin: 0;
             padding: 0;
@@ -171,6 +160,7 @@ if($email != false && $password != false){
             font-weight: 500;
             white-space: nowrap;
             text-decoration: none;
+            
         }
 
         .sidebar:hover .links li a {
@@ -181,77 +171,85 @@ if($email != false && $password != false){
             margin-top: 20px;
         }
 
-        .card{
-            background-color: #3deb6c;
-            padding:20px;
-            margin: 10px;
-            border-radius: 10px;
-            box-shadow: 8px 5px 5px #D3D3D3;
-            transform: translate(40%, 60%);
+        .container {
+            transform: translate(4.5%, 15%);
         }
-        .card h4 {
-            padding-top: 10px;
-            color: #222;
-            font-weight: 600;
-            font-family: 'Poppins';
-        } 
-        .card h5 {
-            color: #222;
-            font-weight: 600;
-            font-family: 'Poppins';
-            font-style: italic;
-        }     
+
+        a{
+          padding: 5px;
+        }
         
-    </style>
+    </style>  
+  <title>User Panel</title>
 </head>
+
 <body>
-        <?php   
-            include_once "connection.php";
-        ?>
-    <nav class="navbar">
-    <a href="admin-home.php"><img src="media/pharmacy.png" style="width:40px;height:40px;"></a>
-    <button type="button" class="btn btn-light"><a href="logout-user.php">Logout</a></button>
+<nav class="navbar">
+    <a href="../admin-home.php"><img src="../media/pharmacy.png" style="width:40px;height:40px;"></a>
+    <button type="button" class="btn btn-light"><a href="../logout-user.php">Logout</a></button>
     </nav>
-    <h1>Welcome Admin - <?php echo $fetch_info['name'] ?></h1>
 
-    <div id="main-content" class="container allContent-section py-4">
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="card">
-                    <i class="fa fa-users  mb-2" style="color: #ffffff";></i>
-                    <h4 style="color:white;">Total Users</h4>
-                    <h5 style="color:white;">
-                    <?php
-                        $sql="SELECT * from usertable WHERE authorization = 'user'";
-                        $result=$con-> query($sql);
-                        $count=0;
-                        if ($result-> num_rows > 0){
-                            while ($row=$result-> fetch_assoc()) {
-                    
-                                $count=$count+1;
-                            }
-                        }
-                        echo $count;
-                    ?></h5>
-                </div>
-            </div>
-        </div>
-    </div>
+  <div class="container">
+    <?php
+    if (isset($_GET["msg"])) {
+      $msg = $_GET["msg"];
+      echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+      ' . $msg . '
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+    }
+    ?>
+    <a href="add-new.php" class="btn btn-dark mb-3">Add New</a>
 
-    <aside class="sidebar">
+    <table class="table table-hover text-center">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Status</th>
+          <th scope="col">Authorization</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        $sql = "SELECT * FROM `usertable`";
+        $result = mysqli_query($con, $sql);
+        while ($row = mysqli_fetch_assoc($result)) {
+        ?>
+          <tr>
+            <td><?php echo $row["id"] ?></td>
+            <td><?php echo $row["name"] ?></td>
+            <td><?php echo $row["email"] ?></td>
+            <td><?php echo $row["status"] ?></td>
+            <td><?php echo $row["authorization"] ?></td>
+            <td>
+              <a href="edit.php?id=<?php echo $row["id"] ?>" class="link-dark me-1"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
+              <a href="delete.php?id=<?php echo $row["id"] ?>" class="link-dark"><i class="fa-solid fa-trash fs-5"></i></a>
+            </td>
+          </tr>
+        <?php
+        }
+        ?>
+      </tbody>
+    </table>
+  </div>
+
+  <aside class="sidebar">
       <div class="logo">
-      <img src="media/pharmacy.png" alt="logo">
+      <img src="../media/pharmacy.png" alt="logo">
         <h2>CholeraCare</h2>
       </div>
       <ul class="links">
-      <li>
+        <li>
           <span class="material-symbols-outlined">dashboard</span>
-          <a href="admin-home.php">Dashboard</a>
+          <a href="../admin-home.php">Dashboard</a>
         </li>
         <li>
         <li>
           <span class="material-symbols-outlined">group</span>
-          <a href="admin/user-panel.php">Users Panel </a>
+          <a href="user-panel.php">Users Panel </a>
         </li>
         <li>
           <span class="material-symbols-outlined">show_chart</span>
@@ -300,10 +298,12 @@ if($email != false && $password != false){
         </li>
       </ul>
     </aside>
-    
-
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>      
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
 </body>
+
 </html>
