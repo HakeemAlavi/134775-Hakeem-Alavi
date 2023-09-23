@@ -43,10 +43,14 @@ $next9PTexts = $crawler->filter('p')->slice(0, 9);
     <link rel="stylesheet" href="landing-css/style.css" />
     <!-- Your custom CSS -->
     <style>
-        
+        .cta{
+          padding-left: 30px;
+        }
         /* Custom CSS Styles */
         .simple-container{
-            padding: 30px;
+            padding-top: 30px;
+            padding-right: 30px;
+            padding-left: 30px;
             margin-top: 50px;
         }
         .simple-content {
@@ -55,6 +59,7 @@ $next9PTexts = $crawler->filter('p')->slice(0, 9);
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            background-color: #fff;
         }
 
         .simple-content-title {
@@ -107,6 +112,9 @@ $next9PTexts = $crawler->filter('p')->slice(0, 9);
             <p class="simple-content-text"><?php echo $next9PTexts->eq(7)->text(); ?></p>
             <p class="simple-content-text"><?php echo $next9PTexts->eq(8)->text(); ?></p>
         </div>
+    </div>
+    <div class="cta">
+      <a href="https://www.who.int/emergencies/disease-outbreak-news/item/2023-DON437" target="_blank" class="btn">Read more</a>
     </div>
 </body>
 </html>
