@@ -28,7 +28,6 @@
   <body>
   <main>  
   <div class="big-wrapper light">
-        <img src="./img/shape.png" alt="" class="shape" />
 
         <header>
           <div class="container">
@@ -40,7 +39,7 @@
             <div class="links">
               <ul>
                 <li><a href="features.php">Features</a></li>
-                <li><a href="#">News</a></li>
+                <li><a href="simple.php">News</a></li>
                 <li><a href="#">Testimonials</a></li>
                 <li><a href="signup-user.php" class="btn">Sign up</a></li>
               </ul>

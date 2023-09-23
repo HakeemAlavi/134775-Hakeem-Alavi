@@ -199,10 +199,10 @@ include "../connection.php";
     </div>';
     }
     ?>
-    <a href="add-new.php" class="btn btn-dark mb-3">Add New</a>
+    <a href="add-new.php" class="btn btn-success mb-3">Add New</a>
 
     <table class="table table-hover text-center">
-      <thead class="table-dark">
+      <thead class="table-light">
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Name</th>
@@ -225,8 +225,8 @@ include "../connection.php";
             <td><?php echo $row["status"] ?></td>
             <td><?php echo $row["authorization"] ?></td>
             <td>
-              <a href="edit.php?id=<?php echo $row["id"] ?>" class="link-dark me-1"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
-              <a href="delete.php?id=<?php echo $row["id"] ?>" class="link-dark"><i class="fa-solid fa-trash fs-5"></i></a>
+              <a href="edit.php?id=<?php echo $row["id"] ?>" class="link-dark me-1"><i class="fa-solid fa-pen-to-square fs-5 me-3" style="color: #14A44D"></i></a>
+              <a href="delete.php?id=<?php echo $row["id"] ?>" class="link-dark"><i class="fa-solid fa-trash fs-5" style="color: #14A44D"></i></a>
             </td>
           </tr>
         <?php
