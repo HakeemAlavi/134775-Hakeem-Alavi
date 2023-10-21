@@ -280,9 +280,9 @@ vis_miss(cholera_imputed) + theme(axis.text.x = element_text(angle = 80))
 # Note: The following command should give you an *error* stating that at least 2
 # variables should have missing data for the plot to be created.
 
-gg_miss_upset(cholera_imputed)
+# gg_miss_upset(cholera_imputed)
 
-### Measures of distribution ----
+## Measures of distribution ----
 # Standard Deviation
 
 sapply(cholera[, c(1, 2, 3, 4, 5, 6, 7, 8)], sd)
@@ -315,3 +315,273 @@ View(cholera_imputed_cov)
 
 cholera_imputed_cor <- cor(cholera_imputed [c(1, 2, 3, 4, 5, 6, 7, 8)])
 View(cholera_imputed_cor)
+
+# Data Transformation and----
+
+class_distribution <- table(cholera_imputed$choleraDiagnosis)
+print(class_distribution)
+
+## Undersampling ----
+# Load the necessary libraries
+
+library(caret)
+
+# Convert 'choleraDiagnosis' to a factor
+
+cholera_imputed$choleraDiagnosis <- as.factor(cholera_imputed$choleraDiagnosis)
+
+# Identify the positive and negative class samples
+
+positive_samples <- cholera_imputed[cholera_imputed$choleraDiagnosis == 1, ]
+negative_samples <- cholera_imputed[cholera_imputed$choleraDiagnosis == 0, ]
+
+# Undersample the majority class (in this case, the negative class)
+
+negative_samples_undersampled <- negative_samples[sample(nrow(negative_samples), nrow(positive_samples)), ]
+
+# Combine the undersampled negative class with the positive class
+
+cholera_undersampled <- rbind(negative_samples_undersampled, positive_samples)
+
+# Check the class distribution after applying undersampling
+
+table(cholera_undersampled$choleraDiagnosis)
+
+# Conclusion: The class distribution is now balanced after performing undersampling
+# This balance in the number of instances for each class will help mitigate the 
+# effects of class imbalance and ensure that your logistic regression model can 
+# learn from both classes effectively, leading to more accurate predictions and 
+# improved model performance.
+
+# Initial Data Analysis
+
+summary(cholera_undersampled)
+
+# Histogram for Age
+
+hist(cholera_undersampled$age, main = "Histogram for Age")
+
+# Histogram for Education
+
+hist(cholera_undersampled$education, main = "Histogram for Education")
+
+# Histogram for Watery Diarrhoea
+
+hist(cholera_undersampled$wateryDiarrhoea, main = "Histogram for Watery Diarrhoea")
+
+# Histogram for Dehydration
+
+hist(cholera_undersampled$dehydration, main = "Histogram for Dehydration")
+
+# Histogram for Vomiting
+
+hist(cholera_undersampled$vomiting, main = "Histogram for Vomiting")
+
+# Histogram for Muscle Cramps
+
+hist(cholera_undersampled$muscleCramps, main = "Histogram for Muscle Cramps")
+
+# Histogram for Rapid Heart Rate
+
+hist(cholera_undersampled$rapidHeartRate, main = "Histogram for Rapid Heart Rate")
+
+# Bar plot for Cholera Diagnosis
+
+barplot(table(cholera_undersampled$choleraDiagnosis), main = "Bar Plot for Cholera Diagnosis")
+
+# Conclusion: The variables that appear to be positively skewed are vomiting, muscle  
+# cramps and rapid heart rate. This means that their distributions are skewed to the
+# right, and the tail of the distribution extends towards the higher values. In this 
+# case, the mean is likely to be greater than the median for these variables.
+
+# Evaluation Metrics ----
+
+# Identify the number of instances that belong to each class (distribution or class breakdown).
+
+cholera_undersampled_choleraDiagnosis_freq <- cholera_undersampled$choleraDiagnosis
+class_distribution <- cbind(frequency = table(cholera_undersampled_choleraDiagnosis_freq),
+                            percentage = prop.table(table(cholera_undersampled_choleraDiagnosis_freq)) * 100)
+
+# Print the class distribution and percentage breakdown
+
+print(class_distribution)
+
+## Install required packages ----
+
+if (require("ggplot2")) {
+  require("ggplot2")
+} else {
+  install.packages("ggplot2", dependencies = TRUE,
+                   repos = "https://cloud.r-project.org")
+}
+
+if (require("caret")) {
+  require("caret")
+} else {
+  install.packages("caret", dependencies = TRUE,
+                   repos = "https://cloud.r-project.org")
+}
+
+if (require("mlbench")) {
+  require("mlbench")
+} else {
+  install.packages("mlbench", dependencies = TRUE,
+                   repos = "https://cloud.r-project.org")
+}
+
+if (require("pROC")) {
+  require("pROC")
+} else {
+  install.packages("pROC", dependencies = TRUE,
+                   repos = "https://cloud.r-project.org")
+}
+
+if (require("dplyr")) {
+  require("dplyr")
+} else {
+  install.packages("dplyr", dependencies = TRUE,
+                   repos = "https://cloud.r-project.org")
+}
+
+## Dataset Splitting ----
+# Define a 75:25 train:test data split of the dataset.
+# That is, 75% of the original data will be used to train the model and
+# 25% of the original data will be used to test the model.
+
+train_index <- createDataPartition(cholera_undersampled$choleraDiagnosis,
+                                   p = 0.75,
+                                   list = FALSE)
+cholera_train <- cholera_undersampled[train_index, ]
+cholera_test <- cholera_undersampled[-train_index, ]
+
+library(caret)
+
+# 5-fold cross-validation
+
+train_control <- trainControl(method = "cv", number = 5)
+
+## Random Forest ----
+# Train the Random Forest model
+
+set.seed(7)
+cholera_model_rf <- train(choleraDiagnosis ~ ., data = cholera_train, method = "rf",
+                          metric = "Accuracy", trControl = train_control)
+
+# Print the trained model
+
+print(cholera_model_rf)
+
+# Conclusion: The random forest model has been successfully trained on your 
+# cholera dataset. The results show that the model has achieved perfect accuracy
+# and kappa values across the tested values of mtry. The final selected value 
+# for the model was mtry = 2. You can further analyze the model and make any 
+# necessary adjustments based on this information.
+
+### Calculating Metrics ----
+# Compute the metric yourself using the test dataset
+# Confusion matrix for binary classification problem
+
+cholera_predictions_rf <- predict(cholera_model_rf, cholera_test)
+cholera_confusion_matrix_rf <- caret::confusionMatrix(cholera_predictions_rf, cholera_test$choleraDiagnosis)
+print(cholera_confusion_matrix_rf)
+
+### Confusion Matrix ----
+# Display a graphical confusion matrix
+
+fourfoldplot(as.table(cholera_confusion_matrix_rf), color = c("grey", "lightblue"),
+             main = "Confusion Matrix (RF)")
+
+# Save the model
+
+saveRDS(cholera_model_rf, "Cholera_Model/cholera_model_rf.rds")
+
+## Logistic Regression 1 ----
+# We can use "regLogistic" 
+# Notice the data transformation applied when we call the train function
+# in caret, i.e., a standardize data transform (center + scale)
+
+set.seed(7)
+cholera_caret_model_logistic <-
+  train(choleraDiagnosis ~ ., data = cholera_train,
+        method = "regLogistic", metric = "Accuracy",
+        preProcess = c("center", "scale"), trControl = train_control)
+
+# Display the model's details 
+
+print(cholera_caret_model_logistic)
+
+### Calculating Metrics ----
+# Make predictions
+
+cholera_predictions_lr <- predict(cholera_caret_model_logistic,
+                               cholera_test)
+
+# Display the model's evaluation metrics 
+
+cholera_confusion_matrix_lr <-
+  caret::confusionMatrix(cholera_predictions_lr,
+                         cholera_test$choleraDiagnosis)
+print(cholera_confusion_matrix_lr)
+
+### Confusion Matrix ----
+
+fourfoldplot(as.table(cholera_confusion_matrix_lr), color = c("grey", "lightblue"),
+             main = "Confusion Matrix (LR 1)")
+
+# Save the model
+
+saveRDS(cholera_caret_model_logistic, "Cholera_Model/cholera_model.rds")
+
+## Logistic Regression 2 ----
+# We can use "glmnet" 
+
+set.seed(7)
+cholera_caret_model_logistic_two <- train(
+  choleraDiagnosis ~ ., 
+  data = cholera_train,
+  method = "glmnet",
+  family = "binomial",
+  metric = "Accuracy",
+  preProcess = c("center", "scale"),
+  trControl = trainControl(method = "cv", number = 5, verboseIter = TRUE),
+  maxit = 1000
+)
+
+# Check for multicollinearity
+findLinearCombos(cholera_train[, -which(names(cholera_train) %in% "choleraDiagnosis")])
+
+print(cholera_caret_model_logistic_two)
+
+### Calculating Metrics ----
+# Make predictions
+
+cholera_predictions_lr_two <- predict(cholera_caret_model_logistic_two,
+                                  cholera_test)
+
+# Display the model's evaluation metrics 
+
+cholera_confusion_matrix_lr_two <-
+  caret::confusionMatrix(cholera_predictions_lr_two,
+                         cholera_test$choleraDiagnosis)
+print(cholera_confusion_matrix_lr_two)
+
+### Confusion Matrix ----
+
+fourfoldplot(as.table(cholera_confusion_matrix_lr_two), color = c("grey", "lightblue"),
+             main = "Confusion Matrix (LR 2)")
+
+# Save the model
+
+saveRDS(cholera_caret_model_logistic_two, "Cholera_Model/cholera_model_two.rds")
+
+# Conclusion ----
+
+# After evaluating three different models, it is evident that Logistic Regression 2 
+# performs the best in terms of accuracy and balance between sensitivity and specificity.
+# The model employs a glmnet algorithm with alpha value set to 0.1 and lambda value 
+# set to 0.0294.
+# Its accuracy of 67.08% and balanced sensitivity and specificity make it a relatively
+# robust choice for classifying cholera cases.
+# The regularization approach used in this model aids in preventing overfitting, 
+# ensuring generalizability to unseen data.
+# Therefore, Logistic Regression 2 is the preferred model for the classification task at hand.
