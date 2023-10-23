@@ -7,9 +7,11 @@ model <- readRDS("cholera_model_two.rds")
 
 # Define the UI
 ui <- fluidPage(
-  titlePanel("Cholera Prediction"),
+
+  titlePanel("Cholera Classification"),
   sidebarLayout(
     sidebarPanel(
+      style = "background-color: #3deb6c;", # Setting the background color of the sidebar
       # Add input fields for the independent variables
       numericInput("age", "Age", value = 25),
       selectInput("vomiting", "Vomiting", choices = c(0, 1), selected = 0),
@@ -19,7 +21,19 @@ ui <- fluidPage(
       selectInput("education", "Education Level", choices = c(1, 2, 3, 4), selected = 1),
       selectInput("wateryDiarrhoea", "Watery Diarrhoea", choices = c(0, 1), selected = 0),
       selectInput("dehydration", "Dehydration", choices = c(0, 1), selected = 0),
-      actionButton("submit", "Submit")
+      br(),
+      actionButton("submit", 
+                   tags$b("Submit"), 
+                   style = "background-color: #ffffff; 
+                      color: #3deb6c; 
+                      width: 100%; 
+                      border-radius: 5px; 
+                      padding: 10px; 
+                      font-weight: bold;
+                      transition: background-color 0.3s, color 0.3s;",
+                   class = "submit-button"
+      )
+      
     ),
     mainPanel(
       # Display the model's prediction
@@ -70,9 +84,12 @@ server <- function(input, output) {
       print("Making prediction")
       prediction <- predict(model, data.frame(age, vomiting, muscleCramps, rapidHeartRate, male, education, wateryDiarrhoea, dehydration))
       
+      # Convert the result to "Yes" or "No"
+      result <- ifelse(prediction == 1, "Yes", "No")
+      
       # Display the prediction
       output$prediction <- renderText({
-        paste("Prediction: ", as.factor(prediction))
+        paste("Prediction: ", result)
       })
     }, error = function(e) {
       output$prediction <- renderText({
