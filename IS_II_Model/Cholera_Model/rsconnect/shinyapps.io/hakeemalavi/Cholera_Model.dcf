@@ -1,0 +1,13 @@
+name: Cholera_Model
+title: Cholera_Model
+username: hakeemalavi
+account: hakeemalavi
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 10291770
+bundleId: 7844905
+url: https://hakeemalavi.shinyapps.io/Cholera_Model/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: cholera_model.rds|cholera_model_rf.rds

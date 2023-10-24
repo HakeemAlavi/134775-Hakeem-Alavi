@@ -194,7 +194,10 @@ if($email != false && $password != false){
         <h2>CholeraCare</h2>
       </div>
       <ul class="links">
-        
+      <li>
+            <span class="material-symbols-outlined">pacemaker</span>
+            <a href="https://hakeemalavi.shinyapps.io/Cholera_Model/" target="_blank">Cholera Model</a>
+        </li>
         <li>
           <span class="material-symbols-outlined">dashboard</span>
           <a href="#">Dashboard</a>
@@ -203,12 +206,12 @@ if($email != false && $password != false){
           <span class="material-symbols-outlined">show_chart</span>
           <a href="#">Revenue</a>
         </li>
+        
+        <hr>
         <li>
           <span class="material-symbols-outlined">flag</span>
           <a href="#">Reports</a>
         </li>
-        <hr>
-        
         <li>
           <span class="material-symbols-outlined">person</span>
           <a href="#">Designer</a>
@@ -220,10 +223,6 @@ if($email != false && $password != false){
         <li>
           <span class="material-symbols-outlined">ambient_screen</span>
           <a href="#">Magic Build</a>
-        </li>
-        <li>
-          <span class="material-symbols-outlined">pacemaker</span>
-          <a href="#">Theme Maker</a>
         </li>
         <li>
           <span class="material-symbols-outlined">monitoring</span>

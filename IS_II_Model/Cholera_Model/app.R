@@ -6,6 +6,20 @@ model <- readRDS("cholera_model_two.rds")
 
 # Define the UI
 ui <- fluidPage(
+  tags$head(
+    tags$style(HTML("
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+      body {
+        font-family: 'Poppins', sans-serif;
+        font-size: 16px;
+      }
+      .input-label {
+        font-weight: normal;
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+    "))
+  ),
   br(),
   sidebarLayout(
     sidebarPanel(
@@ -17,17 +31,24 @@ ui <- fluidPage(
       tags$p("The AI model's diagnosis has an accuracy of 67%."),
       tags$p("Please fill in the form to receive a cholera classification based on your respective symptoms."),
       br(),
-      numericInput("age", "Age", value = 25, min = 0, max = 120),
-      selectInput("male", "Gender", choices = c("Female", "Male"), selected = "Male"),
-      selectInput("vomiting", "Vomiting", choices = c("No", "Yes"), selected = "No"),
-      selectInput("muscleCramps", "Muscle Cramps", choices = c("No", "Yes"), selected = "No"),
-      selectInput("rapidHeartRate", "Rapid Heart Rate", choices = c("No", "Yes"), selected = "No"),
-      selectInput("wateryDiarrhoea", "Watery Diarrhoea", choices = c("No", "Yes"), selected = "No"),
-      selectInput("dehydration", "Dehydration", choices = c("No", "Yes"), selected = "No"),
-      selectInput("education", "Education Level", choices = c("Weak", "Average", "Good", "Exceptional"), selected = "Primary"),
+      numericInput("age", tags$label("Age", class = "input-label"), value = 25, min = 0, max = 120),
+      tags$label("Gender", class = "input-label"),
+      selectInput("male", NULL, choices = c("Female", "Male"), selected = "Male"),
+      tags$label("Vomiting", class = "input-label"),
+      selectInput("vomiting", NULL, choices = c("No", "Yes"), selected = "No"),
+      tags$label("Muscle Cramps", class = "input-label"),
+      selectInput("muscleCramps", NULL, choices = c("No", "Yes"), selected = "No"),
+      tags$label("Rapid Heart Rate", class = "input-label"),
+      selectInput("rapidHeartRate", NULL, choices = c("No", "Yes"), selected = "No"),
+      tags$label("Watery Diarrhoea", class = "input-label"),
+      selectInput("wateryDiarrhoea", NULL, choices = c("No", "Yes"), selected = "No"),
+      tags$label("Dehydration", class = "input-label"),
+      selectInput("dehydration", NULL, choices = c("No", "Yes"), selected = "No"),
+      tags$label("Education Level", class = "input-label"),
+      selectInput("education", NULL, choices = c("Weak", "Average", "Good", "Exceptional"), selected = "Primary"),
       br(),
       actionButton("submit", 
-                   tags$b("Submit"), 
+                   "Submit", 
                    style = "background-color: #ffffff; 
                       color: #3deb6c; 
                       width: 100%; 
@@ -36,19 +57,24 @@ ui <- fluidPage(
                       font-weight: bold;
                       transition: background-color 0.3s, color 0.3s;",
                    class = "submit-button"
-      )
+      ),
+      br(),
     ),
     mainPanel(
       # Display the model's prediction
       div(style = "padding-left: 150px; padding-top: 10px; font-weight: bold;",
-          h3("Cholera Diagnosis", style = "color: #3deb6c;"),
+          h3("Cholera Diagnosis", style = "color: #3deb6c; font-weight: bold;"),
           textOutput("prediction")
       )
     )
   )
 )
 
-server <- function(input, output) {
+server <- function(input, output, session) {
+  # Install the glmnet package if it's not already installed
+  if (!require("glmnet")) {
+    install.packages("glmnet")
+  }
   observeEvent(input$submit, {
     # Display "Testing" on button click
     print("Button clicked")
@@ -107,4 +133,3 @@ server <- function(input, output) {
 
 # Run the application
 shinyApp(ui, server)
-         
