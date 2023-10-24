@@ -199,7 +199,6 @@ if($email != false && $password != false){
             <a href="#" onclick="openCenteredWindow('https://hakeemalavi.shinyapps.io/Cholera_Model/', 'myWindow', 900, 630); return false;">Cholera Model</a>
         </li>
         
-        //Centering the window
         <script>
             function openCenteredWindow(url, name, width, height) {
                 var left = (screen.width / 2) - (width / 2);
