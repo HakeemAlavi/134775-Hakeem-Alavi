@@ -194,10 +194,22 @@ if($email != false && $password != false){
         <h2>CholeraCare</h2>
       </div>
       <ul class="links">
-      <li>
+        <li>
             <span class="material-symbols-outlined">pacemaker</span>
-            <a href="https://hakeemalavi.shinyapps.io/Cholera_Model/" target="_blank">Cholera Model</a>
+            <a href="#" onclick="openCenteredWindow('https://hakeemalavi.shinyapps.io/Cholera_Model/', 'myWindow', 900, 630); return false;">Cholera Model</a>
         </li>
+        
+        //Centering the window
+        <script>
+            function openCenteredWindow(url, name, width, height) {
+                var left = (screen.width / 2) - (width / 2);
+                var top = (screen.height / 2) - (height / 2);
+                var options = 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left;
+                window.open(url, name, options);
+            }
+        </script>
+
+
         <li>
           <span class="material-symbols-outlined">dashboard</span>
           <a href="#">Dashboard</a>
