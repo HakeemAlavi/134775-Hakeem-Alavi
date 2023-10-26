@@ -28,6 +28,7 @@ if($email != false && $password != false){
     <title><?php echo $fetch_info['name'] ?> | Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <script src="feedback.js"></script>
     <style>
     @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
     nav{
@@ -201,20 +202,7 @@ if($email != false && $password != false){
         <li>
             <span class="material-symbols-outlined">pacemaker</span>
             <a href="#" onclick="openCenteredWindow('https://hakeemalavi.shinyapps.io/Cholera_Model/', 'myWindow', 900, 630); return false;">Cholera Model</a>
-        </li>
-        
-        <script>
-            function openCenteredWindow(url, name, width, height) {
-                var left = (screen.width / 2) - (width / 2);
-                var top = (screen.height / 2) - (height / 2);
-                var options = 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left;
-                window.open(url, name, options);
-            }
-        </script>
-
-        
-
-        
+        </li>     
         <li>
           <span class="material-symbols-outlined">dashboard</span>
           <a href="#">Dashboard</a>

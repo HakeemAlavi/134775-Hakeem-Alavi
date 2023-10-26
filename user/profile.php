@@ -42,6 +42,7 @@ if($email != false && $password != false){
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="feedback.js"></script>
     <style>
     @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
     nav{
@@ -277,19 +278,6 @@ if($email != false && $password != false){
             <span class="material-symbols-outlined">pacemaker</span>
             <a href="#" onclick="openCenteredWindow('https://hakeemalavi.shinyapps.io/Cholera_Model/', 'myWindow', 900, 630); return false;">Cholera Model</a>
         </li>
-        
-        <script>
-            function openCenteredWindow(url, name, width, height) {
-                var left = (screen.width / 2) - (width / 2);
-                var top = (screen.height / 2) - (height / 2);
-                var options = 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left;
-                window.open(url, name, options);
-            }
-        </script>
-
-        
-
-        
         <li>
           <span class="material-symbols-outlined">dashboard</span>
           <a href="#">Dashboard</a>
