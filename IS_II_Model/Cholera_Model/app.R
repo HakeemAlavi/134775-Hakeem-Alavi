@@ -29,6 +29,7 @@ ui <- fluidPage(
       br(),
       tags$p(style = "font-weight: bold;", "Disclaimer"),
       tags$p("The AI model's diagnosis has an accuracy of 67%."),
+      tags$p("Use the diagnosis as an informed guess and visit a doctor for further treatment."),
       tags$p("Please fill in the form to receive a cholera classification based on your respective symptoms."),
       br(),
       numericInput("age", tags$label("Age", class = "input-label"), value = 25, min = 0, max = 120),
