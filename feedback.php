@@ -87,7 +87,7 @@
     <div class="form-container">
         <h3>We'd love your feedback!</h3>
         <form method="post" action="insert-feedback.php">
-            <p>Was the Cholera Diagnosis correct?</p>
+            <p>What was your <strong>final</strong> cholera diagnosis?</p>
             <div class="radio-div">
                 <div>
                     <input type="radio" name="diagnosis" value="yes">

@@ -71,7 +71,9 @@ if($email != false && $password != false){
             font-family: "Poppins", sans-serif;
         }
 
-        
+        a{
+          padding: 5px;
+        }
 
         .sidebar {
             position: fixed;

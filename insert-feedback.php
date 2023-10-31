@@ -23,7 +23,7 @@ if ($email != false) {
 
                 // Script to close the window after 3 seconds
                 echo '<script>';
-                echo 'setTimeout(function(){ window.close(); }, 2000);';
+                echo 'setTimeout(function(){ window.close(); }, 3000);';
                 echo '</script>';
             } else {
                 echo "Error: " . $sql_insert . "<br>" . mysqli_error($con);

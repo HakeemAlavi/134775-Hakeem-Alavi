@@ -5,7 +5,7 @@ account: hakeemalavi
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 10291770
-bundleId: 7844905
+bundleId: 7872986
 url: https://hakeemalavi.shinyapps.io/Cholera_Model/
 version: 1
 asMultiple: FALSE

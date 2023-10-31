@@ -13,8 +13,8 @@ function openCenteredWindow(url, name, width, height) {
 }
 
 function openFeedbackForm() {
-    var width = 600; // Adjust the width as desired
-    var height = 500; // Adjust the height as desired
+    var width = 900; // Adjust the width as desired
+    var height = 630; // Adjust the height as desired
     var left = (screen.width / 2) - (width / 2);
     var top = (screen.height / 2) - (height / 2);
     var options = 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left;

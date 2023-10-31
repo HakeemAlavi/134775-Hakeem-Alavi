@@ -1,35 +1,60 @@
-<?php require_once "controllerUserData.php"; ?>
-<?php 
-$email = $_SESSION['email'];
-$password = $_SESSION['password'];
-if($email != false && $password != false){
-    $sql = "SELECT * FROM usertable WHERE email = '$email'";
-    $run_Sql = mysqli_query($con, $sql);
-    if($run_Sql){
-        $fetch_info = mysqli_fetch_assoc($run_Sql);
-        $status = $fetch_info['status'];
-        $code = $fetch_info['code'];
-        if($status == "verified"){
-            if($code != 0){
-                header('Location: reset-code.php');
-            }
-        }else{
-            header('Location: user-otp.php');
-        }
+<?php
+include "connection.php";
+
+// Fetch data from the database
+$query = "SELECT DATE(submission_time) as submission_date, COUNT(*) as total_usage FROM userfeedback GROUP BY DATE(submission_time)";
+$result = mysqli_query($con, $query);
+
+// Initialize arrays for the chart data
+$dates = [];
+$usages = [];
+
+// Populate the arrays with data from the database
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $dates[] = date('l, F j, Y', strtotime($row['submission_date']));
+        $usages[] = $row['total_usage'];
     }
-}else{
-    header('Location: login-user.php');
 }
+
+// Fetch data from the database for the pie chart
+$diagnosis_query = "SELECT diagnosis, COUNT(*) as count FROM userfeedback GROUP BY diagnosis";
+$diagnosis_result = mysqli_query($con, $diagnosis_query);
+
+// Initialize arrays for the pie chart data
+$diagnosis_labels = [];
+$diagnosis_counts = [];
+
+// Populate the arrays with data from the database
+if ($diagnosis_result) {
+    while ($row = mysqli_fetch_assoc($diagnosis_result)) {
+        $diagnosis_labels[] = $row['diagnosis'];
+        $diagnosis_counts[] = $row['count'];
+    }
+}
+
+// Close the connection
+mysqli_close($con);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title><?php echo $fetch_info['name'] ?> | Home</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"> -->
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
     @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
     nav{
@@ -53,7 +78,7 @@ if($email != false && $password != false){
     button a:hover{
         text-decoration: none;
     }
-    h1{
+    /* h1{
         position: absolute;
         top: 20%;
         left: 50%;
@@ -63,7 +88,7 @@ if($email != false && $password != false){
         font-size: 28px;
         font-weight: 600;
         font-family: 'Poppins';
-    }
+    } */
     * {
             margin: 0;
             padding: 0;
@@ -171,6 +196,7 @@ if($email != false && $password != false){
             font-weight: 500;
             white-space: nowrap;
             text-decoration: none;
+            
         }
 
         .sidebar:hover .links li a {
@@ -180,67 +206,146 @@ if($email != false && $password != false){
         .links .logout-link {
             margin-top: 20px;
         }
-        
+
+        .container {
+            transform: translate(4.5%, 15%);
+        }
+
         a{
           padding: 5px;
         }
-
-        .card{
-            background-color: #3deb6c;
-            padding:20px;
-            margin: 10px;
-            border-radius: 10px;
-            box-shadow: 8px 5px 5px #D3D3D3;
-            transform: translate(40%, 60%);
-        }
-        .card h4 {
-            padding-top: 10px;
-            color: #222;
-            font-weight: 600;
-            font-family: 'Poppins';
-        } 
-        .card h5 {
-            color: #222;
-            font-weight: 600;
-            font-family: 'Poppins';
-            font-style: italic;
-        }     
         
-    </style>
+        .container-fluid {
+            padding-left: 138px;
+            padding-top: 56px;
+        }
+    </style>  
+  <title>Admin Charts</title>
 </head>
+
 <body>
-        <?php   
-            include_once "connection.php";
-        ?>
     <nav class="navbar">
     <a href="admin-home.php"><img src="media/pharmacy.png" style="width:40px;height:40px;"></a>
     <button type="button" class="btn btn-light"><a href="logout-user.php">Logout</a></button>
     </nav>
-    <h1>Welcome Admin - <?php echo $fetch_info['name'] ?></h1>
 
-    <div id="main-content" class="container allContent-section py-4">
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="card">
-                    <i class="fa fa-users  mb-2" style="color: #ffffff";></i>
-                    <h4 style="color:white;">Total Users</h4>
-                    <h5 style="color:white;">
-                    <?php
-                        $sql="SELECT * from usertable WHERE authorization = 'user'";
-                        $result=$con-> query($sql);
-                        $count=0;
-                        if ($result-> num_rows > 0){
-                            while ($row=$result-> fetch_assoc()) {
-                    
-                                $count=$count+1;
+    <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-7 my-1">
+        <div class="card">
+          <div class="card-body">
+            <canvas id="modelUsageChart" ></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4.5 my-1">
+        <div class="card">
+          <div class="card-body">
+            <canvas id="diagnosisChart" ></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <script>
+        // JavaScript code for the line chart
+        var dates = <?php echo json_encode($dates); ?>;
+        var usages = <?php echo json_encode($usages); ?>;
+
+        var ctx = document.getElementById('modelUsageChart').getContext('2d');
+        var modelUsageChart = new Chart(ctx, {
+            type: 'line', // Change the type to 'line'
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Number of Model Classifications',
+                    data: usages,
+                    backgroundColor: '#3deb6c',
+                    borderColor: '#3deb6c',
+                    borderWidth: 1,
+                    fill: false // Ensure the line chart is not filled
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Daily Classifications',
+                            font: {
+                                family: 'Poppins'
+                            }
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Poppins'
                             }
                         }
-                        echo $count;
-                    ?></h5>
-                </div>
-            </div>
-        </div>
-    </div>
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date',
+                            font: {
+                                family: 'Poppins'
+                            }
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Poppins'
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Daily Model Classifications',
+                        font: {
+                            family: 'Poppins',
+                            size: 20
+                        }
+                    }
+                }
+            }
+        });
+
+        // JavaScript code for the pie chart
+        var diagnosisLabels = <?php echo json_encode($diagnosis_labels); ?>;
+        var diagnosisCounts = <?php echo json_encode($diagnosis_counts); ?>;
+
+        var diagnosisData = {
+            labels: diagnosisLabels,
+            datasets: [{
+                label: 'Diagnosis',
+                data: diagnosisCounts,
+                backgroundColor: ['#f43f5e', '#3deb6c'] // You can add more colors for additional categories
+            }]
+        };
+
+        var diagnosisCtx = document.getElementById('diagnosisChart').getContext('2d');
+        var diagnosisChart = new Chart(diagnosisCtx, {
+            type: 'pie',
+            data: diagnosisData,
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Diagnosis Feedback',
+                        font: {
+                            family: 'Poppins',
+                            size: 20
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
 
     <aside class="sidebar">
       <div class="logo">
@@ -306,10 +411,12 @@ if($email != false && $password != false){
         </li>
       </ul>
     </aside>
-    
-
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>      
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
 </body>
+
 </html>
