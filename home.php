@@ -204,15 +204,16 @@ if($email != false && $password != false){
         <li>
             <span class="material-symbols-outlined">pacemaker</span>
             <a href="#" onclick="openCenteredWindow('https://hakeemalavi.shinyapps.io/Cholera_Model/', 'myWindow', 900, 630); return false;">Cholera Model</a>
+        </li>
+        <li>
+          <span class="material-symbols-outlined">monitoring</span>
+          <a href="user-charts.php">Analytics</a>
         </li>     
         <li>
           <span class="material-symbols-outlined">dashboard</span>
           <a href="#">Dashboard</a>
         </li>
-        <li>
-          <span class="material-symbols-outlined">show_chart</span>
-          <a href="#">Revenue</a>
-        </li>
+        
         
         <hr>
         <li>
@@ -228,8 +229,8 @@ if($email != false && $password != false){
           <a href="#">Developer </a>
         </li>
         <li>
-          <span class="material-symbols-outlined">monitoring</span>
-          <a href="#">Analytic</a>
+          <span class="material-symbols-outlined">show_chart</span>
+          <a href="#">Revenue</a>
         </li>
         <hr>
         

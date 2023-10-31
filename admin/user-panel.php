@@ -264,7 +264,7 @@ include "../connection.php";
         
         <li>
           <span class="material-symbols-outlined">person</span>
-          <a href="#">Designer</a>
+          <a href="../display-feedback.php">Feedback</a>
         </li>
         
         <li>

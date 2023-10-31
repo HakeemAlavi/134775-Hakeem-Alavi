@@ -1,27 +1,52 @@
 <?php
-include "../connection.php";
-?>
-<?php require_once "../controllerUserData.php"; ?>
-<?php 
+require_once "connection.php";
+require_once "controllerUserData.php";
+
 $email = $_SESSION['email'];
-$password = $_SESSION['password'];
-if($email != false && $password != false){
+if ($email != false) {
     $sql = "SELECT * FROM usertable WHERE email = '$email'";
     $run_Sql = mysqli_query($con, $sql);
-    if($run_Sql){
+    if ($run_Sql) {
         $fetch_info = mysqli_fetch_assoc($run_Sql);
-        $status = $fetch_info['status'];
-        $code = $fetch_info['code'];
-        if($status == "verified"){
-            if($code != 0){
-                header('Location: reset-code.php');
+        $user_id = $fetch_info['id'];
+
+        // Fetch data from the database
+        $query = "SELECT DATE(submission_time) as submission_date, COUNT(*) as total_usage FROM userfeedback WHERE user_id = '$user_id' GROUP BY DATE(submission_time)";
+        $result = mysqli_query($con, $query);
+
+        // Initialize arrays for the chart data
+        $dates = [];
+        $usages = [];
+
+        // Populate the arrays with data from the database
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $dates[] = date('l, F j, Y', strtotime($row['submission_date']));
+                $usages[] = $row['total_usage'];
             }
-        }else{
-            header('Location: user-otp.php');
+        }
+
+        // Fetch data from the database for the pie chart
+        $diagnosis_query = "SELECT diagnosis, COUNT(*) as count FROM userfeedback WHERE user_id = '$user_id' GROUP BY diagnosis";
+        $diagnosis_result = mysqli_query($con, $diagnosis_query);
+
+        // Initialize arrays for the pie chart data
+        $diagnosis_labels = [];
+        $diagnosis_counts = [];
+
+        // Populate the arrays with data from the database
+        if ($diagnosis_result) {
+            while ($row = mysqli_fetch_assoc($diagnosis_result)) {
+                $diagnosis_labels[] = $row['diagnosis'];
+                $diagnosis_counts[] = $row['count'];
+            }
         }
     }
-}else{
-    header('Location: login-user.php');
+
+    // Close the connection
+    mysqli_close($con);
+} else {
+    header('Location: home.php');
 }
 ?>
 
@@ -42,6 +67,7 @@ if($email != false && $password != false){
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="feedback.js"></script>
     <style>
     @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
@@ -197,82 +223,153 @@ if($email != false && $password != false){
 
         .container {
             transform: translate(4.5%, 15%);
-            padding-top: 80px;
         }
 
         a{
           padding: 5px;
         }
         
+        .container-fluid {
+            padding-left: 138px;
+            padding-top: 56px;
+        }
     </style>  
-  <title>My Profile</title>
+  <title>User Charts</title>
 </head>
 
 <body>
-<nav class="navbar">
-    <a href="../home.php"><img src="../media/pharmacy.png" style="width:40px;height:40px;"></a>
-    <button type="button" class="btn btn-light"><a href="../logout-user.php">Logout</a></button>
+    <nav class="navbar">
+    <a href="admin-home.php"><img src="media/pharmacy.png" style="width:40px;height:40px;"></a>
+    <button type="button" class="btn btn-light"><a href="logout-user.php">Logout</a></button>
     </nav>
 
-    <div class="container">
-    <?php
-    if (isset($_GET["msg"])) {
-      $msg = $_GET["msg"];
-      echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-      ' . $msg . '
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>';
-    }
-    ?>
-    
+    <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-7 my-1">
+        <div class="card">
+          <div class="card-body">
+            <canvas id="modelUsageChart" ></canvas>
+          </div>
+        </div>
+      </div>
 
-    <table class="table table-hover text-center">
-      <thead class="table-light">
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Name</th>
-          <th scope="col">Email</th>
-          <th scope="col">Status</th>
-          <th scope="col">Authorization</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-      <?php
-          // Add the filter to retrieve data only for the current session user
-          if (isset($_SESSION['email'])) {
-              $userEmail = $_SESSION['email'];
-              $sql = "SELECT * FROM `usertable` WHERE email = '$userEmail'";
-              $result = mysqli_query($con, $sql);
-              while ($row = mysqli_fetch_assoc($result)) {
-                  ?>
-                  <tr>
-                    <td><?php echo $row["id"] ?></td>
-                    <td><?php echo $row["name"] ?></td>
-                    <td><?php echo $row["email"] ?></td>
-                    <td><?php echo $row["status"] ?></td>
-                    <td><?php echo $row["authorization"] ?></td>
-                    <td>
-                    <a href="edit.php?id=<?php echo $row["id"] ?>" class="link-dark me-1"><i class="fa-solid fa-pen-to-square fs-5 me-3" style="color: #14A44D"></i></a>
-                    </td>
-                  </tr>
-          <?php
-        }
-      }
-    ?>
-      </tbody>
-    </table>
-  </div>   
+      <div class="col-md-4.5 my-1">
+        <div class="card">
+          <div class="card-body">
+            <canvas id="diagnosisChart" ></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <aside class="sidebar">
+
+    <script>
+        // JavaScript code for the line chart
+        var dates = <?php echo json_encode($dates); ?>;
+        var usages = <?php echo json_encode($usages); ?>;
+
+        var ctx = document.getElementById('modelUsageChart').getContext('2d');
+        var modelUsageChart = new Chart(ctx, {
+            type: 'line', // Change the type to 'line'
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Number of Model Classifications',
+                    data: usages,
+                    backgroundColor: '#3deb6c',
+                    borderColor: '#3deb6c',
+                    borderWidth: 1,
+                    fill: false // Ensure the line chart is not filled
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Daily Classifications',
+                            font: {
+                                family: 'Poppins'
+                            }
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Poppins'
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date',
+                            font: {
+                                family: 'Poppins'
+                            }
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Poppins'
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Daily Model Classifications',
+                        font: {
+                            family: 'Poppins',
+                            size: 20
+                        }
+                    }
+                }
+            }
+        });
+
+        // JavaScript code for the pie chart
+        var diagnosisLabels = <?php echo json_encode($diagnosis_labels); ?>;
+        var diagnosisCounts = <?php echo json_encode($diagnosis_counts); ?>;
+
+        var diagnosisData = {
+            labels: diagnosisLabels,
+            datasets: [{
+                label: 'Diagnosis',
+                data: diagnosisCounts,
+                backgroundColor: ['#f43f5e', '#3deb6c'] // You can add more colors for additional categories
+            }]
+        };
+
+        var diagnosisCtx = document.getElementById('diagnosisChart').getContext('2d');
+        var diagnosisChart = new Chart(diagnosisCtx, {
+            type: 'pie',
+            data: diagnosisData,
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Diagnosis Feedback',
+                        font: {
+                            family: 'Poppins',
+                            size: 20
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+
+<aside class="sidebar">
       <div class="logo">
-      <img src="../media/pharmacy.png" alt="logo">
+      <img src="media/pharmacy.png" alt="logo">
         <h2>CholeraCare</h2>
       </div>
       <ul class="links">
         <li>
           <span class="material-symbols-outlined">home</span>
-          <a href="../home.php">My Home</a>
+          <a href="home.php">My Home</a>
         </li>
         <li>
             <span class="material-symbols-outlined">pacemaker</span>
@@ -280,8 +377,8 @@ if($email != false && $password != false){
         </li>
         <li>
           <span class="material-symbols-outlined">monitoring</span>
-          <a href="../user-charts.php">Analytic</a>
-        </li>
+          <a href="user-charts.php">Analytics</a>
+        </li>     
         <li>
           <span class="material-symbols-outlined">dashboard</span>
           <a href="#">Dashboard</a>
@@ -291,7 +388,7 @@ if($email != false && $password != false){
         <hr>
         <li>
           <span class="material-symbols-outlined">person</span>
-          <a href="profile.php">My Profile</a>
+          <a href="user/profile.php">My Profile</a>
         </li>
         <li>
           <span class="material-symbols-outlined">flag</span>

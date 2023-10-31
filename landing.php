@@ -23,7 +23,7 @@
                 <li><a href="features.php">Features</a></li>
                 <li><a href="simple.php">News</a></li>
                 <li><a href="#">Testimonials</a></li>
-                <li><a href="signup-user.php" class="btn">Sign up</a></li>
+                <li><a href="login-user.php" class="btn">Log In</a></li>
               </ul>
             </div>
 
@@ -46,7 +46,7 @@
 			  At CholeraCare, we're dedicated to transforming the way cholera is managed. Our web application offers a comprehensive suite of tools and resources to streamline cholera detection and prevention. Join us in the fight against cholera today!
               </p>
               <div class="cta">
-                <a href="login-user.php" class="btn">Get started</a>
+                <a href="signup-user.php" class="btn">Get started</a>
               </div>
             </div>
 

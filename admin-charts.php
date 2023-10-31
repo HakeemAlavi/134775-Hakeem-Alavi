@@ -1,5 +1,30 @@
 <?php
 include "connection.php";
+?>
+<?php require_once "controllerUserData.php"; ?>
+<?php 
+$email = $_SESSION['email'];
+$password = $_SESSION['password'];
+if($email != false && $password != false){
+    $sql = "SELECT * FROM usertable WHERE email = '$email'";
+    $run_Sql = mysqli_query($con, $sql);
+    if($run_Sql){
+        $fetch_info = mysqli_fetch_assoc($run_Sql);
+        $status = $fetch_info['status'];
+        $code = $fetch_info['code'];
+        if($status == "verified"){
+            if($code != 0){
+                header('Location: reset-code.php');
+            }
+        }else{
+            header('Location: user-otp.php');
+        }
+    }
+}else{
+    header('Location: login-user.php');
+}
+?>
+<?php
 
 // Fetch data from the database
 $query = "SELECT DATE(submission_time) as submission_date, COUNT(*) as total_usage FROM userfeedback GROUP BY DATE(submission_time)";
@@ -375,7 +400,7 @@ mysqli_close($con);
         
         <li>
           <span class="material-symbols-outlined">person</span>
-          <a href="#">Designer</a>
+          <a href="display-feedback.php">Feedback</a>
         </li>
         
         <li>
