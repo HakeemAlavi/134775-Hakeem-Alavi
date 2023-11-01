@@ -14,7 +14,8 @@ if ($email != false) {
             $feedback = $_POST['feedback'];
             $diagnosis = $_POST['diagnosis'];
 
-            $sql_insert = "INSERT INTO userfeedback (feedback_id, user_id, diagnosis, feedback, submission_time) VALUES (NULL, '$user_id', '$diagnosis', '$feedback', NOW())";
+            // Add the read_status field to the SQL query
+            $sql_insert = "INSERT INTO userfeedback (feedback_id, user_id, diagnosis, feedback, submission_time, read_status) VALUES (NULL, '$user_id', '$diagnosis', '$feedback', NOW(), 0)";
 
             if (mysqli_query($con, $sql_insert)) {
                 echo '<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">';
