@@ -191,7 +191,9 @@ if($email != false && $password != false){
             margin: 10px;
             border-radius: 10px;
             box-shadow: 8px 5px 5px #D3D3D3;
-            transform: translate(40%, 60%);
+            width: 400px;
+            height: 150px;
+            /* transform: translate(40%, 60%); */
         }
         .card h4 {
             padding-top: 10px;
@@ -204,7 +206,10 @@ if($email != false && $password != false){
             font-weight: 600;
             font-family: 'Poppins';
             font-style: italic;
-        }     
+        }   
+        .container {
+            padding: 70px;
+        }
         
     </style>
 </head>
@@ -218,13 +223,11 @@ if($email != false && $password != false){
     </nav>
     <h1>Welcome Admin - <?php echo $fetch_info['name'] ?></h1>
 
-    <div id="main-content" class="container allContent-section py-4">
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="card">
-                    <i class="fa fa-users  mb-2" style="color: #ffffff";></i>
-                    <h4 style="color:white;">Total Users</h4>
-                    <h5 style="color:white;">
+    <div class="container d-flex justify-content-around my-3">
+        <div class="card">
+            <i class="fa fa-users  mb-2" style="color: #ffffff";></i>
+                <h4 style="color:white;">Total Users</h4>
+                <h5 style="color:white;">
                     <?php
                         $sql="SELECT * from usertable WHERE authorization = 'user'";
                         $result=$con-> query($sql);
@@ -236,9 +239,46 @@ if($email != false && $password != false){
                             }
                         }
                         echo $count;
-                    ?></h5>
-                </div>
+                    ?>
+                </h5>
             </div>
+    
+        <div class="card">
+            <i class="fa fa-user-circle  mb-2" style="color: #ffffff";></i>
+                <h4 style="color:white;">Total Admins</h4>
+                <h5 style="color:white;">
+                    <?php
+                        $sql="SELECT * from usertable WHERE authorization = 'admin'";
+                        $result=$con-> query($sql);
+                        $count=0;
+                        if ($result-> num_rows > 0){
+                            while ($row=$result-> fetch_assoc()) {
+                    
+                                $count=$count+1;
+                            }
+                        }
+                        echo $count;
+                    ?>
+                </h5>
+            </div>
+        <div class="card">
+            <i class="fa fa-stethoscope  mb-2" style="color: #ffffff;"></i>
+                <h4 style="color:white;">Classifications</h4>
+                <h5 style="color:white;">
+                <?php
+                    include "connection.php"; // Include your connection file
+                    $sql="SELECT COUNT(*) as total_classifications from userfeedback";
+                    $result=$con-> query($sql);
+                    if ($result-> num_rows > 0){
+                        while ($row=$result-> fetch_assoc()) {
+                            echo $row['total_classifications'];
+                        }
+                    } else {
+                        echo '0';
+                    }
+                    $con->close(); // Close the database connection
+                ?>
+            </h5>
         </div>
     </div>
 

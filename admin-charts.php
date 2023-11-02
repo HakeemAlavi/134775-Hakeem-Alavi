@@ -15,17 +15,20 @@ if($email != false && $password != false){
         if($status == "verified"){
             if($code != 0){
                 header('Location: reset-code.php');
+                exit;
             }
         }else{
             header('Location: user-otp.php');
+            exit;
         }
     }
 }else{
     header('Location: login-user.php');
+    exit;
 }
 ?>
-<?php
 
+<?php
 // Fetch data from the database
 $query = "SELECT DATE(submission_time) as submission_date, COUNT(*) as total_usage FROM userfeedback GROUP BY DATE(submission_time)";
 $result = mysqli_query($con, $query);
@@ -37,7 +40,7 @@ $usages = [];
 // Populate the arrays with data from the database
 if ($result) {
     while ($row = mysqli_fetch_assoc($result)) {
-        $dates[] = date('l, F j, Y', strtotime($row['submission_date']));
+        $dates[] = date('Y-m-d', strtotime($row['submission_date']));
         $usages[] = $row['total_usage'];
     }
 }

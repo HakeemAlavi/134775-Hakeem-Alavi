@@ -1,34 +1,26 @@
-<?php require_once "controllerUserData.php"; ?>
-<?php 
-$email = $_SESSION['email'];
-$password = $_SESSION['password'];
-if($email != false && $password != false){
-    $sql = "SELECT * FROM usertable WHERE email = '$email'";
-    $run_Sql = mysqli_query($con, $sql);
-    if($run_Sql){
-        $fetch_info = mysqli_fetch_assoc($run_Sql);
-        $status = $fetch_info['status'];
-        $code = $fetch_info['code'];
-        if($status == "verified"){
-            if($code != 0){
-                header('Location: reset-code.php');
-            }
-        }else{
-            header('Location: user-otp.php');
-        }
-    }
-}else{
-    header('Location: login-user.php');
-}
+<?php
+require_once "connection.php";
+require_once "controllerUserData.php";
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><?php echo $fetch_info['name'] ?> | Home</title>
+    <title>Review</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <script src="feedback.js"></script>
+    <script type="text/javascript">
+        // Change card title based on submit status
+        var submitStatus = <?php echo $submit_status; ?>;
+        if (submitStatus === 1) {
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('cardTitle').innerText = "Edit Your Review";
+            });
+        }
+    </script>
     <style>
     @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
     nav{
@@ -182,6 +174,80 @@ if($email != false && $password != false){
         .links .logout-link {
             margin-top: 20px;
         }
+
+        .card {
+            background-color: #3deb6c;
+            padding: 20px;
+            margin: 10px auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            margin-top: 2%;
+        }
+
+        .card h4 {
+            padding-top: 10px;
+            color: #222;
+            font-weight: 600;
+            font-family: 'Poppins';
+        }
+
+        .card form {
+            margin-top: 20px;
+        }
+
+        .rating {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            background-image: url('media/outline-star.png');
+            background-size: cover;
+        }
+
+        .rating input:checked ~ label {
+            background-image: url('media/gold-star.png');
+        }
+
+        .rating label:hover,
+        .rating label:hover ~ label {
+            background-image: url('media/gold-star.png');
+        }
+
+        /* Updated CSS for star order and animation */
+        .rating {
+            flex-direction: row-reverse;
+        }
+
+        .submit-button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+
     </style>
 </head>
 <body>
@@ -190,7 +256,64 @@ if($email != false && $password != false){
     
     <button type="button" class="btn btn-light"><a href="logout-user.php">Logout</a></button>
     </nav>
-    <h1>Welcome <?php echo $fetch_info['name'] ?></h1>
+    
+    <div id="main-content" class="container allContent-section py-4">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <h4 style="color:white;">Rate This Application</h4>
+                    <form id="reviewForm" method="post" action="submit-review.php">
+                        <div class="rating">
+                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5"></label>
+                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
+                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
+                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
+                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>
+                        </div>
+                        <button class="submit-button" type="submit">Submit Review</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- New "My Review" card -->
+    <div id="my-review" class="container allContent-section py-4">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <h4 style="color:white;">My Rating</h4><br>
+                    <?php
+                    $email = $_SESSION['email'];
+                    if ($email != false) {
+                        $sql = "SELECT * FROM usertable WHERE email = '$email'";
+                        $run_Sql = mysqli_query($con, $sql);
+                        if ($run_Sql) {
+                            $fetch_info = mysqli_fetch_assoc($run_Sql);
+                            $user_id = $fetch_info['id'];
+                    
+                            // Fetch the user's review
+                            $user_review_query = "SELECT review FROM userreview WHERE user_id = '$user_id'";
+                            $run_user_review_query = mysqli_query($con, $user_review_query);
+
+                            if ($run_user_review_query && mysqli_num_rows($run_user_review_query) > 0) {
+                                $user_review_data = mysqli_fetch_assoc($run_user_review_query);
+                                $user_review = $user_review_data['review'];
+
+                                // Display the user's review with stars or relevant information
+                                // Replace the following line with your HTML code to display the user's review
+                                echo "<p style='color: black;'>Current Review: $user_review/5</p>";
+                            } else {
+                                // If no review found, display a message
+                                echo "<p style='color: black;'>No review submitted yet.</p>";
+                            }
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <aside class="sidebar">
       <div class="logo">
       <img src="media/pharmacy.png" alt="logo">

@@ -21,7 +21,7 @@ if ($email != false) {
         // Populate the arrays with data from the database
         if ($result) {
             while ($row = mysqli_fetch_assoc($result)) {
-                $dates[] = date('l, F j, Y', strtotime($row['submission_date']));
+                $dates[] = date('Y-m-d', strtotime($row['submission_date']));
                 $usages[] = $row['total_usage'];
             }
         }
