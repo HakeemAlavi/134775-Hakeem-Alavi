@@ -378,11 +378,11 @@ if ($email != false) {
         <li>
           <span class="material-symbols-outlined">monitoring</span>
           <a href="user-charts.php">Analytics</a>
-        </li>     
+        </li>  
         <li>
-          <span class="material-symbols-outlined">dashboard</span>
-          <a href="#">Dashboard</a>
-        </li>
+          <span class="material-symbols-outlined">flag</span>
+          <a href="#">Reports</a>
+        </li>   
         
         
         <hr>
@@ -391,8 +391,8 @@ if ($email != false) {
           <a href="user/profile.php">My Profile</a>
         </li>
         <li>
-          <span class="material-symbols-outlined">flag</span>
-          <a href="#">Reports</a>
+          <span class="material-symbols-outlined">star_half</span>
+          <a href="review.php">My Review</a>
         </li>
         <li>
           <span class="material-symbols-outlined">group</span>

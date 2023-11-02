@@ -264,7 +264,7 @@ if($email != false && $password != false){
     </table>
   </div>   
 
-    <aside class="sidebar">
+  <aside class="sidebar">
       <div class="logo">
       <img src="../media/pharmacy.png" alt="logo">
         <h2>CholeraCare</h2>
@@ -280,12 +280,12 @@ if($email != false && $password != false){
         </li>
         <li>
           <span class="material-symbols-outlined">monitoring</span>
-          <a href="../user-charts.php">Analytic</a>
-        </li>
+          <a href="../user-charts.php">Analytics</a>
+        </li>  
         <li>
-          <span class="material-symbols-outlined">dashboard</span>
-          <a href="#">Dashboard</a>
-        </li>
+          <span class="material-symbols-outlined">flag</span>
+          <a href="#">Reports</a>
+        </li>   
         
         
         <hr>
@@ -294,8 +294,8 @@ if($email != false && $password != false){
           <a href="profile.php">My Profile</a>
         </li>
         <li>
-          <span class="material-symbols-outlined">flag</span>
-          <a href="#">Reports</a>
+          <span class="material-symbols-outlined">star_half</span>
+          <a href="../review.php">My Review</a>
         </li>
         <li>
           <span class="material-symbols-outlined">group</span>
