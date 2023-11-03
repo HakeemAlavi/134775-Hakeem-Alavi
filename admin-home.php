@@ -1,4 +1,6 @@
-<?php require_once "controllerUserData.php"; ?>
+<?php 
+require_once "controllerUserData.php"; 
+?>
 <?php 
 $email = $_SESSION['email'];
 $password = $_SESSION['password'];
@@ -285,21 +287,43 @@ if($email != false && $password != false){
 
     <div class="container d-flex justify-content-around my-3">
         <div class="card">
-        <i class="fa fa-star  mb-2" style="color: #ffffff;"></i>
-        <h4 style="color:white;">Average Review</h4>
-        <h5 style="color:white;">
-            <?php
+             <i class="fa fa-list-ol mb-2" style="color: #ffffff;"></i>
+                <h4 style="color: white;">Score Count</h4>
+                <h5 style="color: white;">
+                    <?php
+                    include "connection.php"; // Ensure the connection is included here
+
+                    $quizTakersQuery = "SELECT COUNT(*) as total_quiz_takers FROM userquiz WHERE score IS NOT NULL";
+                    $quizTakersResult = mysqli_query($con, $quizTakersQuery);
+                    if ($quizTakersResult) {
+                        $quizTakersRow = mysqli_fetch_assoc($quizTakersResult);
+                        $quizTakersCount = $quizTakersRow['total_quiz_takers'];
+                        echo $quizTakersCount;
+                    } else {
+                        echo "Query Failed: " . mysqli_error($con); // Display error if the query fails
+                    }
+                ?>
+            </h5>
+        </div>
+
+
+        
+    <div class="card">
+        <i class="fa fa-pencil-square-o  mb-2" style="color: #ffffff;"></i>
+            <h4 style="color:white;">Average Score</h4>
+            <h5 style="color:white;">
+                <?php
                 $sum = 0;
                 $count = 0;
 
                 include "connection.php"; // Ensure the connection is included here
 
-                $sql = "SELECT review FROM userreview WHERE review != 0";
-                $result = $con->query($sql);
+                $sql = "SELECT score FROM userquiz WHERE score IS NOT NULL";
+                $result = mysqli_query($con, $sql);
                 if ($result) {
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            $sum += $row['review'];
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $sum += $row['score'];
                             $count++;
                         }
                     }
@@ -311,15 +335,71 @@ if($email != false && $password != false){
                         echo "N/A";
                     }
                 } else {
-                    echo "Query Failed: " . $con->error; // Display error if the query fails
+                    echo "Query Failed: " . mysqli_error($con); // Display error if the query fails
                 }
 
-                $con->close(); // Close the connection after all operations are complete
-            ?>
-        </h5>
-    </div>
+                mysqli_close($con); // Close the connection after all operations are complete
+                ?>
+            </h5>
+        </div>
+    <div class="card">
+        <i class="fa fa-list-ol mb-2" style="color: #ffffff;"></i>
+            <h4 style="color: white;">Review Count</h4>
+            <h5 style="color: white;">
+                <?php
+                include "connection.php"; // Ensure the connection is included here
+
+                $appRatersQuery = "SELECT COUNT(*) as total_app_raters FROM userreview WHERE review != 0";
+                $appRatersResult = mysqli_query($con, $appRatersQuery);
+                if ($appRatersResult) {
+                    $appRatersRow = mysqli_fetch_assoc($appRatersResult);
+                    $appRatersCount = $appRatersRow['total_app_raters'];
+                    echo $appRatersCount;
+                } else {
+                    echo "Query Failed: " . mysqli_error($con); // Display error if the query fails
+                }
+
+                mysqli_close($con); // Close the connection after all operations are complete
+                ?>
+            </h5>
+        </div>
+    <div class="card">
+        <i class="fa fa-star  mb-2" style="color: #ffffff;"></i>
+            <h4 style="color:white;">Average Review</h4>
+            <h5 style="color:white;">
+                <?php
+                    $sum = 0;
+                    $count = 0;
+
+                    include "connection.php"; // Ensure the connection is included here
+
+                    $sql = "SELECT review FROM userreview WHERE review != 0";
+                    $result = $con->query($sql);
+                    if ($result) {
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $sum += $row['review'];
+                                $count++;
+                            }
+                        }
+
+                        if ($count > 0) {
+                            $average = $sum / $count;
+                            echo round($average, 2);
+                        } else {
+                            echo "N/A";
+                        }
+                    } else {
+                        echo "Query Failed: " . $con->error; // Display error if the query fails
+                    }
+
+                    $con->close(); // Close the connection after all operations are complete
+                ?>
+            </h5>
+        </div>
     </div>
 </div>
+
     <aside class="sidebar">
       <div class="logo">
       <img src="media/pharmacy.png" alt="logo">

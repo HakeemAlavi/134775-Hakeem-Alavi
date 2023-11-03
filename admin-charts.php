@@ -76,6 +76,23 @@ if ($review_result) {
     }
 }
 
+// Fetch data from the database
+$query = "SELECT score, COUNT(*) as score_count FROM userquiz WHERE score IS NOT NULL GROUP BY score";
+$result = mysqli_query($con, $query);
+
+// Initialize arrays for the chart data
+$scores = [];
+$scoreCounts = [];
+
+// Populate the arrays with data from the database
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $scores[] = $row['score'];
+        $scoreCounts[] = $row['score_count'];
+    }
+}
+
+
 // Close the connection
 mysqli_close($con);
 ?>
@@ -261,6 +278,7 @@ mysqli_close($con);
         .container-fluid {
             padding-left: 138px;
             padding-top: 56px;
+            padding-bottom: 56px;
         }
     </style>  
   <title>Admin Charts</title>
@@ -294,6 +312,13 @@ mysqli_close($con);
             <div class="card">
             <div class="card-body">
                 <canvas id="reviewChart" ></canvas>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-4.5 my-1">
+            <div class="card">
+            <div class="card-body">
+                <canvas id="polarChart"></canvas>
             </div>
             </div>
         </div>
@@ -399,66 +424,133 @@ mysqli_close($con);
         
         
         // JavaScript code for the bar chart
-    var ratings = <?php echo json_encode($ratings); ?>;
-    var reviewCounts = <?php echo json_encode($reviewCounts); ?>;
+        var ratings = <?php echo json_encode($ratings); ?>;
+        var reviewCounts = <?php echo json_encode($reviewCounts); ?>;
 
-    var barCtx = document.getElementById('reviewChart').getContext('2d');
-    var reviewChart = new Chart(barCtx, {
-        type: 'bar',
-        data: {
-            labels: ratings,
-            datasets: [{
-                label: 'Number of Reviews',
-                data: reviewCounts,
-                backgroundColor: '#3deb6c',
-                borderColor: '#3deb6c',
-                borderWidth: 1,
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Number of Reviews',
-                        font: {
-                            family: 'Poppins'
+        var barCtx = document.getElementById('reviewChart').getContext('2d');
+        var reviewChart = new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ratings,
+                datasets: [{
+                    label: 'Number of Reviews',
+                    data: reviewCounts,
+                    backgroundColor: '#3deb6c',
+                    borderColor: '#3deb6c',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Reviews',
+                            font: {
+                                family: 'Poppins'
+                            }
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Poppins'
+                            }
                         }
                     },
-                    ticks: {
-                        font: {
-                            family: 'Poppins'
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Ratings',
+                            font: {
+                                family: 'Poppins'
+                            }
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Poppins'
+                            }
                         }
                     }
                 },
-                x: {
+                plugins: {
                     title: {
                         display: true,
-                        text: 'Ratings',
+                        text: 'Reviews Distribution',
                         font: {
-                            family: 'Poppins'
-                        }
-                    },
-                    ticks: {
-                        font: {
-                            family: 'Poppins'
+                            family: 'Poppins',
+                            size: 20
                         }
                     }
+                }
+            }
+        });
+
+        
+    // JavaScript code for the polar area chart
+    var scores = <?php echo json_encode($scores); ?>;
+    var scoreCounts = <?php echo json_encode($scoreCounts); ?>;
+    var backgroundColors = [];
+    for (var i = 0; i < scores.length; i++) {
+        var color = 'rgba(' + (Math.floor(Math.random() * 256)) + ',' + 
+                    (Math.floor(Math.random() * 256)) + ',' + 
+                    (Math.floor(Math.random() * 256)) + ', 0.6)';
+        backgroundColors.push(color);
+    }
+
+    var polarData = {
+        datasets: [{
+            data: scoreCounts,
+            backgroundColor: backgroundColors,
+            borderWidth: 1
+        }],
+        labels: scores
+    };
+
+    var polarCtx = document.getElementById('polarChart').getContext('2d');
+    var polarChart = new Chart(polarCtx, {
+        type: 'polarArea',
+        data: polarData,
+        options: {
+            elements: {
+                arc: {
+                    borderColor: '#ffffff'
                 }
             },
             plugins: {
                 title: {
                     display: true,
-                    text: 'Reviews Distribution',
+                    text: 'Scores Distribution',
                     font: {
                         family: 'Poppins',
                         size: 20
                     }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            var index = context.dataIndex;
+                            var label = 'Quiz Score: ' + scores[index] + ' - User Count: ' + scoreCounts[index];
+                            return label;
+                        }
+                    }
+                }
+            },
+            scale: {
+                ticks: {
+                    display: false
+                }
+            },
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0
                 }
             }
         }
     });
+
     </script>
 
     <aside class="sidebar">
