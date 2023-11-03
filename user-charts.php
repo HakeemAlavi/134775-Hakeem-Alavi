@@ -376,16 +376,16 @@ if ($email != false) {
             <a href="#" onclick="openCenteredWindow('https://hakeemalavi.shinyapps.io/Cholera_Model/', 'myWindow', 900, 630); return false;">Cholera Model</a>
         </li>
         <li>
+          <span class="material-symbols-outlined">quiz</span>
+          <a href="quiz.php">Quiz</a>
+        </li>
+        <li>
           <span class="material-symbols-outlined">monitoring</span>
           <a href="user-charts.php">Analytics</a>
         </li>  
-        <li>
-          <span class="material-symbols-outlined">flag</span>
-          <a href="#">Reports</a>
-        </li>   
-        
-        
+          
         <hr>
+
         <li>
           <span class="material-symbols-outlined">person</span>
           <a href="user/profile.php">My Profile</a>
@@ -395,27 +395,12 @@ if ($email != false) {
           <a href="review.php">My Review</a>
         </li>
         <li>
-          <span class="material-symbols-outlined">group</span>
-          <a href="#">Developer </a>
-        </li>
-        <li>
-          <span class="material-symbols-outlined">show_chart</span>
-          <a href="#">Revenue</a>
-        </li>
+          <span class="material-symbols-outlined">flag</span>
+          <a href="#">My Reports</a>
+        </li> 
+
         <hr>
         
-        <li>
-          <span class="material-symbols-outlined">bar_chart</span>
-          <a href="#">Overview</a>
-        </li>
-        <li>
-          <span class="material-symbols-outlined">mail</span>
-          <a href="#">Message</a>
-        </li>
-        <li>
-          <span class="material-symbols-outlined">settings</span>
-          <a href="#">Settings</a>
-        </li>
         <li class="logout-link">
           <span class="material-symbols-outlined">logout</span>
           <a href="#">Logout</a>

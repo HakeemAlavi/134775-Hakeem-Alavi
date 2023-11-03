@@ -61,6 +61,21 @@ if ($diagnosis_result) {
     }
 }
 
+// Fetch data from the database for the bar chart
+$review_query = "SELECT review, COUNT(*) as count FROM userreview WHERE review != 0 GROUP BY review";
+$review_result = mysqli_query($con, $review_query);
+
+// Initialize arrays for the bar chart data
+$ratings = [1, 2, 3, 4, 5];
+$reviewCounts = [0, 0, 0, 0, 0];
+
+// Populate the arrays with data from the database
+if ($review_result) {
+    while ($row = mysqli_fetch_assoc($review_result)) {
+        $reviewCounts[$row['review'] - 1] = $row['count'];
+    }
+}
+
 // Close the connection
 mysqli_close($con);
 ?>
@@ -259,23 +274,32 @@ mysqli_close($con);
 
     <div class="container-fluid">
     <div class="row">
-      <div class="col-md-7 my-1">
-        <div class="card">
-          <div class="card-body">
-            <canvas id="modelUsageChart" ></canvas>
-          </div>
+        <div class="col-md-7 my-1">
+            <div class="card">
+            <div class="card-body">
+                <canvas id="modelUsageChart" ></canvas>
+            </div>
+            </div>
         </div>
-      </div>
 
-      <div class="col-md-4.5 my-1">
-        <div class="card">
-          <div class="card-body">
-            <canvas id="diagnosisChart" ></canvas>
-          </div>
+        <div class="col-md-4.5 my-1">
+            <div class="card">
+            <div class="card-body">
+                <canvas id="diagnosisChart" ></canvas>
+            </div>
+            </div>
         </div>
-      </div>
+
+        <div class="col-md-7 my-1">
+            <div class="card">
+            <div class="card-body">
+                <canvas id="reviewChart" ></canvas>
+            </div>
+            </div>
+        </div>
     </div>
-  </div>
+    </div>
+  
 
 
     <script>
@@ -372,7 +396,69 @@ mysqli_close($con);
                 }
             }
         });
+        
+        
+        // JavaScript code for the bar chart
+    var ratings = <?php echo json_encode($ratings); ?>;
+    var reviewCounts = <?php echo json_encode($reviewCounts); ?>;
 
+    var barCtx = document.getElementById('reviewChart').getContext('2d');
+    var reviewChart = new Chart(barCtx, {
+        type: 'bar',
+        data: {
+            labels: ratings,
+            datasets: [{
+                label: 'Number of Reviews',
+                data: reviewCounts,
+                backgroundColor: '#3deb6c',
+                borderColor: '#3deb6c',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Number of Reviews',
+                        font: {
+                            family: 'Poppins'
+                        }
+                    },
+                    ticks: {
+                        font: {
+                            family: 'Poppins'
+                        }
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Ratings',
+                        font: {
+                            family: 'Poppins'
+                        }
+                    },
+                    ticks: {
+                        font: {
+                            family: 'Poppins'
+                        }
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Reviews Distribution',
+                    font: {
+                        family: 'Poppins',
+                        size: 20
+                    }
+                }
+            }
+        }
+    });
     </script>
 
     <aside class="sidebar">

@@ -207,7 +207,7 @@ if($email != false && $password != false){
             font-family: 'Poppins';
             font-style: italic;
         }   
-        .container {
+        .main-container {
             padding: 70px;
         }
         
@@ -222,7 +222,8 @@ if($email != false && $password != false){
     <button type="button" class="btn btn-light"><a href="logout-user.php">Logout</a></button>
     </nav>
     <h1>Welcome Admin - <?php echo $fetch_info['name'] ?></h1>
-
+    
+    <div class="main-container">
     <div class="container d-flex justify-content-around my-3">
         <div class="card">
             <i class="fa fa-users  mb-2" style="color: #ffffff";></i>
@@ -282,6 +283,43 @@ if($email != false && $password != false){
         </div>
     </div>
 
+    <div class="container d-flex justify-content-around my-3">
+        <div class="card">
+        <i class="fa fa-star  mb-2" style="color: #ffffff;"></i>
+        <h4 style="color:white;">Average Review</h4>
+        <h5 style="color:white;">
+            <?php
+                $sum = 0;
+                $count = 0;
+
+                include "connection.php"; // Ensure the connection is included here
+
+                $sql = "SELECT review FROM userreview WHERE review != 0";
+                $result = $con->query($sql);
+                if ($result) {
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            $sum += $row['review'];
+                            $count++;
+                        }
+                    }
+
+                    if ($count > 0) {
+                        $average = $sum / $count;
+                        echo round($average, 2);
+                    } else {
+                        echo "N/A";
+                    }
+                } else {
+                    echo "Query Failed: " . $con->error; // Display error if the query fails
+                }
+
+                $con->close(); // Close the connection after all operations are complete
+            ?>
+        </h5>
+    </div>
+    </div>
+</div>
     <aside class="sidebar">
       <div class="logo">
       <img src="media/pharmacy.png" alt="logo">
