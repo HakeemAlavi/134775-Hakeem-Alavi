@@ -172,13 +172,13 @@ include "../connection.php";
         }
 
         .container {
-            transform: translate(4.5%, 15%);
+            transform: translate(4.5%, 10%);
+            padding-bottom: 5%;
         }
 
         a{
           padding: 5px;
         }
-        
     </style>  
   <title>User Panel</title>
 </head>
