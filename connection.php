@@ -1,3 +1,3 @@
 <?php 
-$con = mysqli_connect('localhost', 'root', '', 'cholera_app');
+$con = mysqli_connect('localhost', 'root', '', 'cholera');
 ?>
