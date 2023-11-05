@@ -283,6 +283,24 @@ if($email != false && $password != false){
                 ?>
             </h5>
         </div>
+        <div class="card">
+            <i class="fa fa-envelope  mb-2" style="color: #ffffff;"></i>
+                <h4 style="color:white;">Unread Feedback</h4>
+                <h5 style="color:white;">
+                    <?php
+                        include "connection.php"; // Include your connection file
+                        $sql = "SELECT COUNT(*) as unread_feedback FROM userfeedback WHERE read_status = 0";
+                        $result = $con->query($sql);
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            echo $row['unread_feedback'];
+                        } else {
+                            echo '0';
+                        }
+                        $con->close(); // Close the database connection
+                    ?>
+                </h5>
+            </div>
     </div>
 
     <div class="container d-flex justify-content-around my-3">
