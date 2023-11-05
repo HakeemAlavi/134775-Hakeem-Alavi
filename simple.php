@@ -87,7 +87,7 @@ $next9PTexts = $crawler->filter('p')->slice(0, 9);
               <ul>
                 <li><a href="features.php">Features</a></li>
                 <li><a href="simple.php">News</a></li>
-                <li><a href="#">Testimonials</a></li>
+                
                 <li><a href="signup-user.php" class="btn">Sign up</a></li>
               </ul>
             </div>

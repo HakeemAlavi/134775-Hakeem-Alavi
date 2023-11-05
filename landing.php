@@ -22,7 +22,7 @@
               <ul>
                 <li><a href="features.php">Features</a></li>
                 <li><a href="simple.php">News</a></li>
-                <li><a href="#">Testimonials</a></li>
+                
                 <li><a href="login-user.php" class="btn">Log In</a></li>
               </ul>
             </div>
