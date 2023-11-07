@@ -115,6 +115,11 @@ mysqli_close($con);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudfare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
+    
     <style>
     @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
     nav{
@@ -280,6 +285,10 @@ mysqli_close($con);
             padding-top: 56px;
             padding-bottom: 56px;
         }
+        .pdf {
+            transform: translate(42%, 15%);
+            margin-top: 4%;
+        }
     </style>  
   <title>Admin Charts</title>
 </head>
@@ -289,7 +298,9 @@ mysqli_close($con);
     <a href="admin-home.php"><img src="media/pharmacy.png" style="width:40px;height:40px;"></a>
     <button type="button" class="btn btn-light"><a href="logout-user.php">Logout</a></button>
     </nav>
-
+    <div class="pdf">
+        <button type="button" class="btn btn-success" onclick="downloadPDF()">Download Reports</button>
+    </div>
     <div class="container-fluid">
     <div class="row">
         <div class="col-md-7 my-1">
@@ -550,6 +561,41 @@ mysqli_close($con);
             }
         }
     });
+
+    function downloadPDF() {
+    const pdf = new jsPDF('landscape');
+    const canvas1 = document.getElementById('modelUsageChart');
+    const canvas2 = document.getElementById('diagnosisChart');
+    const canvas3 = document.getElementById('reviewChart');
+    const canvas4 = document.getElementById('polarChart');
+
+    const canvasImage1 = canvas1.toDataURL('image/png', 1.0);
+    const canvasImage2 = canvas2.toDataURL('image/png', 1.0);
+    const canvasImage3 = canvas3.toDataURL('image/png', 1.0);
+    const canvasImage4 = canvas4.toDataURL('image/png', 1.0);
+
+    // Add the title within the PDF
+    const pageTitle = 'SYSTEM REPORTS AS OF - ' + new Date().toLocaleString();
+
+    pdf.addFont('Poppins-Regular.ttf', 'Poppins', 'normal');
+    pdf.setFont('Poppins');
+    pdf.setFontSize(30);
+    pdf.setFontStyle('bold');
+    pdf.text(30, 100, pageTitle);
+
+    pdf.addPage();
+
+    pdf.addImage(canvasImage1, 'PNG', 15, 15, 280, 150);
+    pdf.addPage();
+    pdf.addImage(canvasImage2, 'PNG', 60, 15, 180, 180);
+    pdf.addPage();
+    pdf.addImage(canvasImage3, 'PNG', 5, 15, 280, 150);
+    pdf.addPage();
+    pdf.addImage(canvasImage4, 'PNG', 60, 15, 180, 180);
+
+    pdf.save('Cholera-System-Report.pdf');
+}
+
 
     </script>
 

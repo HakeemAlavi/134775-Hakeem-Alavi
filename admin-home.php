@@ -440,7 +440,7 @@ if($email != false && $password != false){
 
         <li>
           <span class="material-symbols-outlined">flag</span>
-          <a href="#">Reports</a>
+          <a href="reports.php">Reports</a>
         </li>
         <hr>
         
