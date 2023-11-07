@@ -210,7 +210,7 @@ if($email != false && $password != false){
 
 <body>
 <nav class="navbar">
-    <a href="../home.php"><img src="../media/pharmacy.png" style="width:40px;height:40px;"></a>
+    <a href="../home.php"><img src="" style="width:40px;height:40px;"></a>
     <button type="button" class="btn btn-light"><a href="../logout-user.php">Logout</a></button>
     </nav>
 
@@ -297,16 +297,12 @@ if($email != false && $password != false){
           <span class="material-symbols-outlined">star_half</span>
           <a href="../review.php">My Review</a>
         </li>
-        <li>
-          <span class="material-symbols-outlined">flag</span>
-          <a href="#">My Reports</a>
-        </li> 
 
         <hr>
         
         <li class="logout-link">
           <span class="material-symbols-outlined">logout</span>
-          <a href="#">Logout</a>
+          <a href="../logout-user.php">Logout</a>
         </li>
       </ul>
     </aside>

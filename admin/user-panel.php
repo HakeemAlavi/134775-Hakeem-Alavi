@@ -185,7 +185,7 @@ include "../connection.php";
 
 <body>
 <nav class="navbar">
-    <a href="../admin-home.php"><img src="../media/pharmacy.png" style="width:40px;height:40px;"></a>
+    <a href="../admin-home.php"><img src="" style="width:40px;height:40px;"></a>
     <button type="button" class="btn btn-light"><a href="../logout-user.php">Logout</a></button>
     </nav>
 
@@ -255,48 +255,16 @@ include "../connection.php";
           <span class="material-symbols-outlined">monitoring</span>
           <a href="../admin-charts.php">Analytics</a>
         </li>
-
-        <li>
-          <span class="material-symbols-outlined">flag</span>
-          <a href="#">Reports</a>
-        </li>
-        <hr>
-        
         <li>
           <span class="material-symbols-outlined">person</span>
           <a href="../display-feedback.php">Feedback</a>
         </li>
         
-        <li>
-          <span class="material-symbols-outlined">ambient_screen</span>
-          <a href="#">Magic Build</a>
-        </li>
-        <li>
-          <span class="material-symbols-outlined">pacemaker</span>
-          <a href="#">Theme Maker</a>
-        </li>
-        
-        <li>
-          <span class="material-symbols-outlined">show_chart</span>
-          <a href="#">Revenue</a>
-        </li>
         <hr>
-        
-        <li>
-          <span class="material-symbols-outlined">bar_chart</span>
-          <a href="#">Overview</a>
-        </li>
-        <li>
-          <span class="material-symbols-outlined">mail</span>
-          <a href="#">Message</a>
-        </li>
-        <li>
-          <span class="material-symbols-outlined">settings</span>
-          <a href="#">Settings</a>
-        </li>
+
         <li class="logout-link">
           <span class="material-symbols-outlined">logout</span>
-          <a href="#">Logout</a>
+          <a href="../logout-user.php">Logout</a>
         </li>
       </ul>
     </aside>

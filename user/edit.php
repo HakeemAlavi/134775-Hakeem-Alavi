@@ -208,7 +208,7 @@ if (isset($_POST["submit"])) {
 
 <body>
 <nav class="navbar">
-    <a href="../home.php"><img src="../media/pharmacy.png" style="width:40px;height:40px;"></a>
+    <a href="../home.php"><img src="" style="width:40px;height:40px;"></a>
     <button type="button" class="btn btn-light"><a href="../logout-user.php">Logout</a></button>
     </nav>
 
@@ -260,58 +260,38 @@ if (isset($_POST["submit"])) {
       </div>
       <ul class="links">
         <li>
-          <span class="material-symbols-outlined">dashboard</span>
-          <a href="../admin-home.php">Dashboard</a>
+          <span class="material-symbols-outlined">home</span>
+          <a href="../home.php">My Home</a>
         </li>
         <li>
-        <li>
-          <span class="material-symbols-outlined">group</span>
-          <a href="user-panel.php">Users Panel </a>
+            <span class="material-symbols-outlined">pacemaker</span>
+            <a href="#" onclick="openCenteredWindow('https://hakeemalavi.shinyapps.io/Cholera_Model/', 'myWindow', 900, 630); return false;">Cholera Model</a>
         </li>
         <li>
-          <span class="material-symbols-outlined">show_chart</span>
-          <a href="#">Revenue</a>
-        </li>
-        <li>
-          <span class="material-symbols-outlined">flag</span>
-          <a href="#">Reports</a>
-        </li>
-        <hr>
-        
-        <li>
-          <span class="material-symbols-outlined">person</span>
-          <a href="#">Designer</a>
-        </li>
-        
-        <li>
-          <span class="material-symbols-outlined">ambient_screen</span>
-          <a href="#">Magic Build</a>
-        </li>
-        <li>
-          <span class="material-symbols-outlined">pacemaker</span>
-          <a href="#">Theme Maker</a>
+          <span class="material-symbols-outlined">quiz</span>
+          <a href="../quiz.php">Quiz</a>
         </li>
         <li>
           <span class="material-symbols-outlined">monitoring</span>
-          <a href="#">Analytic</a>
+          <a href="../user-charts.php">Analytics</a>
+        </li>  
+          
+        <hr>
+
+        <li>
+          <span class="material-symbols-outlined">person</span>
+          <a href="profile.php">My Profile</a>
         </li>
+        <li>
+          <span class="material-symbols-outlined">star_half</span>
+          <a href="../review.php">My Review</a>
+        </li>
+
         <hr>
         
-        <li>
-          <span class="material-symbols-outlined">bar_chart</span>
-          <a href="#">Overview</a>
-        </li>
-        <li>
-          <span class="material-symbols-outlined">mail</span>
-          <a href="#">Message</a>
-        </li>
-        <li>
-          <span class="material-symbols-outlined">settings</span>
-          <a href="#">Settings</a>
-        </li>
         <li class="logout-link">
           <span class="material-symbols-outlined">logout</span>
-          <a href="#">Logout</a>
+          <a href="../logout-user.php">Logout</a>
         </li>
       </ul>
     </aside>
