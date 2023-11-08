@@ -73,18 +73,18 @@
             </div>
             <h3>Symptoms Alignment</h3>
             <p>
-            Quickly identify and input cholera symptoms and receive instant results for better diagnosis.
+            Quickly identify and input cholera symptoms and receive an informed guess for better diagnosis.
             </p>
           </div>
         </div>
         <div class="column">
           <div class="card">
             <div class="icon-wrapper">
-              <i class="fa-solid fa-robot"></i>
+              <i class="fa fa-graduation-cap"></i>
             </div>
-            <h3>CholeraCare Chatbot</h3>
+            <h3>Competence Quiz</h3>
             <p>
-            Get instant answers and support through our interactive cholera chatbot for all your queries.
+            Active recall is utilized after learning about cholera and proper hygiene and sanitation to maximize retention.
             </p>
           </div>
         </div>

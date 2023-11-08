@@ -54,13 +54,14 @@ if($email != false && $password != false){
     }
     h1{
         position: absolute;
-        top: 50%;
+        top: 20%;
         left: 50%;
         width: 100%;
         text-align: center;
-        transform: translate(-50%, -50%);
-        font-size: 50px;
+        transform: translate(-50%, -62%);
+        font-size: 28px;
         font-weight: 600;
+        font-family: 'Poppins';
     }
     /* Importing Google font - Poppins */
         
@@ -182,6 +183,19 @@ if($email != false && $password != false){
         .links .logout-link {
             margin-top: 20px;
         }
+        .main-content {
+            margin-left: 120px;
+            margin-top: 5%;
+            padding: 20px;
+        }
+
+        .info-section {
+            margin-bottom: 40px;
+        }
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -191,7 +205,57 @@ if($email != false && $password != false){
     <button type="button" class="btn btn-light"><a href="logout-user.php">Logout</a></button>
     </nav>
     
-    <h1>Welcome <?php echo $fetch_info['name'] ?></h1>
+    <!-- <h1>Welcome <?php echo $fetch_info['name'] ?></h1> -->
+    <section class="main-content">
+        <h1>Welcome <?php echo $fetch_info['name'] ?></h1>
+
+        <div class="info-section">
+    <h2>About Cholera</h2><br>
+    <p>
+        Cholera is an acute diarrheal infection caused by the ingestion of food or water contaminated with the bacterium Vibrio cholerae. This infectious disease is characterized by profuse, painless, and watery diarrhea, which can lead to severe dehydration and even death if not promptly treated. The bacterium responsible for cholera produces a toxin that causes the cells lining the small intestine to release massive amounts of water, leading to the characteristic diarrhea.
+    </p>
+    <p>
+        Common symptoms of cholera include sudden onset of watery diarrhea, vomiting, and leg cramps. While some individuals may only experience mild symptoms, others can rapidly develop severe dehydration, low blood pressure, and shock, leading to a life-threatening condition if left untreated.
+    </p>
+    <p>
+        Cholera outbreaks are often associated with areas or communities with inadequate access to clean water and proper sanitation facilities. Additionally, factors such as overcrowding, poor hygiene practices, and contaminated food contribute to the rapid spread of the disease, particularly in regions prone to natural disasters, such as floods and earthquakes.
+    </p>
+    <p>
+        Immediate treatment for cholera involves rehydration therapy to replace the lost fluids and electrolytes in the body. Oral rehydration salts (ORS) or intravenous fluids are administered to manage dehydration and restore the body's electrolyte balance. Antibiotic treatment can also be effective in reducing the severity and duration of symptoms.
+    </p>
+    <p>
+        Prevention of cholera primarily focuses on ensuring access to safe and clean drinking water, maintaining proper sanitation and hygiene practices, and promoting community awareness and education. Implementing water purification methods, practicing good personal hygiene, and ensuring the proper disposal of human waste are crucial in preventing the transmission and spread of cholera.
+    </p>
+    <p>
+        In endemic areas, cholera vaccination campaigns may be conducted to provide additional protection and prevent the occurrence of large-scale outbreaks. Public health interventions and community-based initiatives play a vital role in controlling and preventing the spread of cholera, particularly in regions vulnerable to the disease.
+    </p>
+    <p>
+        While cholera remains a significant global health concern, timely access to clean water, sanitation facilities, and adequate medical care can significantly reduce the burden of the disease and prevent its devastating impact on affected communities.
+    </p>
+</div>
+
+<div class="info-section">
+    <h2>Key Principles of Proper Hygiene and Sanitation</h2><br>
+    <p>The recommended duration for washing hands prior to handling food or eating and post bathroom usage is 30 seconds, and one should use clean water and soap to maximize disinfection.</p>
+    <p>Store cooked food in airtight containers to maintain its freshness and prevent contamination. Avoid storing it at room temperature, in an open container, or in direct sunlight.</p>
+    <p>Disinfect fruits and vegetables using a vinegar solution to ensure the removal of any harmful bacteria or contaminants present on their surfaces.</p>
+    <p>Kitchen towels should be washed daily to avoid the spread of germs and bacteria that can lead to foodborne illnesses.</p>
+    <p>Maintain the refrigerator temperature at 5°C (41°F) to preserve perishable foods properly and prevent the growth of harmful bacteria.</p>
+    <p>Dispose of expired food items properly instead of using them, donating them, or storing them, as they can be a source of foodborne illnesses.</p>
+    <p>Regularly clean your refrigerator, preferably once a month, to ensure the removal of any potential sources of contamination and to maintain a hygienic food storage environment.</p>
+    <p>Prevent pests in the kitchen by keeping the area clean and dry. Avoid using chemical sprays and opt for natural prevention methods whenever possible.</p>
+    <p>Thaw raw meat in the refrigerator to maintain its freshness and prevent the growth of harmful bacteria. Avoid thawing it on the counter, in hot water, or in the microwave.</p>
+    <p>Use a disinfectant cleaner to effectively remove germs from various surfaces in your living space, especially in areas where food is prepared or stored.</p>
+    <p>Before and after handling food, always remember to wash your hands thoroughly with soap and clean water to prevent the spread of harmful bacteria and viruses.</p>
+    <p>Cook most meats at a temperature of 165°C (329°F) to ensure that they are thoroughly cooked and free from any harmful bacteria that could cause foodborne illnesses.</p>
+    <p>Use plastic cutting boards, as they are easier to clean and sanitize compared to other materials such as wood, marble, or glass.</p>
+    <p>Properly clean the cutting board with soap and water after cutting raw meat to avoid cross-contamination between raw and cooked foods.</p>
+    <p>If you have a foodborne illness, consult a healthcare professional immediately for proper diagnosis and treatment instead of self-medicating or waiting for it to pass.</p>
+</div>
+
+            <!-- Add more informative sections as needed -->
+
+    </section>
 
     <aside class="sidebar">
       <div class="logo">
