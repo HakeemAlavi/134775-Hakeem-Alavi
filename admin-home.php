@@ -211,6 +211,7 @@ if($email != false && $password != false){
         }   
         .main-container {
             padding: 70px;
+            margin-left: 3.5%;
         }
         
     </style>

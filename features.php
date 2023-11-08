@@ -84,7 +84,7 @@
             </div>
             <h3>Competence Quiz</h3>
             <p>
-            Active recall is utilized after learning about cholera and proper hygiene and sanitation to maximize retention.
+            Active recall is utilized after learning about cholera and proper hygiene and sanitation to maximize knowledge retention.
             </p>
           </div>
         </div>
