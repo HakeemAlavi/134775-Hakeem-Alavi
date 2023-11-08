@@ -210,8 +210,9 @@ if($email != false && $password != false){
             font-style: italic;
         }   
         .main-container {
-            padding: 70px;
-            margin-left: 3.5%;
+            padding: 60px;
+            margin-left: 2%;
+            margin-top: 2%;
         }
         
     </style>
