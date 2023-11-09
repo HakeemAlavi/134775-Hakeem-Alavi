@@ -357,45 +357,52 @@ display: none;
 <div id="model-1-random-forests" class="section level2">
 <h2><strong>Model 1: Random Forests</strong></h2>
 <ul>
-<li><p><strong>Accuracy:</strong> 0.6491</p></li>
-<li><p><strong>Kappa:</strong> 0.2981</p></li>
-<li><p><strong>Sensitivity:</strong> 0.6894</p></li>
+<li><p><strong>Accuracy:</strong> 0.6646</p></li>
+<li><p><strong>Kappa:</strong> 0.3292</p></li>
+<li><p><strong>Sensitivity:</strong> 0.7205</p></li>
 <li><p><strong>Specificity:</strong> 0.6087</p></li>
-<li><p><strong>Positive Predictive Value:</strong> 0.6379</p></li>
-<li><p><strong>Negative Predictive Value:</strong> 0.6622</p></li>
+<li><p><strong>Positive Predictive Value:</strong> 0.6480</p></li>
+<li><p><strong>Negative Predictive Value:</strong> 0.6853</p></li>
 </ul>
 </div>
 <div id="model-2-logistic-regression-1-reglogistic" class="section level2">
 <h2><strong>Model 2: Logistic Regression 1 (“regLogistic”)</strong></h2>
 <ul>
-<li><p><strong>Accuracy:</strong> 0.6646</p></li>
-<li><p><strong>Kappa:</strong> 0.3292</p></li>
-<li><p><strong>Sensitivity:</strong> 0.6584</p></li>
-<li><p><strong>Specificity:</strong> 0.6708</p></li>
-<li><p><strong>Positive Predictive Value:</strong> 0.6667</p></li>
-<li><p><strong>Negative Predictive Value:</strong> 0.6626</p></li>
+<li><p><strong>Accuracy:</strong> 0.6584</p></li>
+<li><p><strong>Kappa:</strong> 0.3168</p></li>
+<li><p><strong>Sensitivity:</strong> 0.6770</p></li>
+<li><p><strong>Specificity:</strong> 0.6398</p></li>
+<li><p><strong>Positive Predictive Value:</strong> 0.6527</p></li>
+<li><p><strong>Negative Predictive Value:</strong> 0.6645</p></li>
 </ul>
 </div>
 <div id="model-3-logistic-regression-2-glmnet" class="section level2">
 <h2><strong>Model 3: Logistic Regression 2 (“glmnet”)</strong></h2>
 <ul>
-<li><p><strong>Accuracy:</strong> 0.6708</p></li>
-<li><p><strong>Kappa:</strong> 0.3416</p></li>
-<li><p><strong>Sensitivity:</strong> 0.6708</p></li>
-<li><p><strong>Specificity:</strong> 0.6708</p></li>
-<li><p><strong>Positive Predictive Value:</strong> 0.6708</p></li>
-<li><p><strong>Negative Predictive Value:</strong> 0.6708</p></li>
+<li><p><strong>Accuracy:</strong> 0.6646</p></li>
+<li><p><strong>Kappa:</strong> 0.3292</p></li>
+<li><p><strong>Sensitivity:</strong> 0.6770</p></li>
+<li><p><strong>Specificity:</strong> 0.6522</p></li>
+<li><p><strong>Positive Predictive Value:</strong> 0.6606</p></li>
+<li><p><strong>Negative Predictive Value:</strong> 0.6688</p></li>
 </ul>
 </div>
 <div id="conclusion" class="section level2">
 <h2><strong>Conclusion</strong></h2>
-<p>It is clear that all three models perform relatively similarly, with
-Model 3 (Logistic Regression 2) showing a slightly higher accuracy and
-Kappa value compared to the other models. Additionally, Model 3 exhibits
-balanced sensitivity and specificity, which suggests it is capable of
-effectively classifying both positive and negative cases. Therefore,
-based on these results, Model 3 was used for the classification
-task.</p>
+<p>Based on the comparison results, all three models, including Random
+Forests, Logistic Regression 1, and Logistic Regression 2, exhibited
+similar performance metrics, with relatively close values for accuracy,
+Kappa, sensitivity, specificity, positive predictive value, and negative
+predictive value. However, Model 3 (Logistic Regression 2 or “glmnet”)
+emerged as the most appropriate choice due to its slightly higher
+specificity compared to the other models. This suggests that Model 3 was
+better at correctly identifying true negatives. While the overall
+differences between the models were not substantial, the emphasis on
+specificity in this context holds significance as it ensures the
+accurate identification of individuals without the cholera condition.
+Therefore, Model 3 is recommended for further analysis and deployment,
+as it can provide more precise classifications and reduce the risk of
+false negatives in the cholera diagnosis process.</p>
 </div>
 </div>
 

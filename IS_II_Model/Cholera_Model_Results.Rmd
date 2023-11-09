@@ -2,46 +2,46 @@
 
 ## **Model 1: Random Forests**
 
--   **Accuracy:** 0.6491
+-   **Accuracy:** 0.6646
 
--   **Kappa:** 0.2981
+-   **Kappa:** 0.3292
 
--   **Sensitivity:** 0.6894
+-   **Sensitivity:** 0.7205
 
 -   **Specificity:** 0.6087
 
--   **Positive Predictive Value:** 0.6379
+-   **Positive Predictive Value:** 0.6480
 
--   **Negative Predictive Value:** 0.6622
+-   **Negative Predictive Value:** 0.6853
 
 ## **Model 2: Logistic Regression 1 ("regLogistic")**
+
+-   **Accuracy:** 0.6584
+
+-   **Kappa:** 0.3168
+
+-   **Sensitivity:** 0.6770
+
+-   **Specificity:** 0.6398
+
+-   **Positive Predictive Value:** 0.6527
+
+-   **Negative Predictive Value:** 0.6645
+
+## **Model 3: Logistic Regression 2 ("glmnet")**
 
 -   **Accuracy:** 0.6646
 
 -   **Kappa:** 0.3292
 
--   **Sensitivity:** 0.6584
+-   **Sensitivity:** 0.6770
 
--   **Specificity:** 0.6708
+-   **Specificity:** 0.6522
 
--   **Positive Predictive Value:** 0.6667
+-   **Positive Predictive Value:** 0.6606
 
--   **Negative Predictive Value:** 0.6626
-
-## **Model 3: Logistic Regression 2 ("glmnet")**
-
--   **Accuracy:** 0.6708
-
--   **Kappa:** 0.3416
-
--   **Sensitivity:** 0.6708
-
--   **Specificity:** 0.6708
-
--   **Positive Predictive Value:** 0.6708
-
--   **Negative Predictive Value:** 0.6708
+-   **Negative Predictive Value:** 0.6688
 
 ## **Conclusion**
 
-It is clear that all three models perform relatively similarly, with Model 3 (Logistic Regression 2) showing a slightly higher accuracy and Kappa value compared to the other models. Additionally, Model 3 exhibits balanced sensitivity and specificity, which suggests it is capable of effectively classifying both positive and negative cases. Therefore, based on these results, Model 3 was used for the classification task.
+Based on the comparison results, all three models, including Random Forests, Logistic Regression 1, and Logistic Regression 2, exhibited similar performance metrics, with relatively close values for accuracy, Kappa, sensitivity, specificity, positive predictive value, and negative predictive value. However, Model 3 (Logistic Regression 2 or "glmnet") emerged as the most appropriate choice due to its slightly higher specificity compared to the other models. This suggests that Model 3 was better at correctly identifying true negatives. While the overall differences between the models were not substantial, the emphasis on specificity in this context holds significance as it ensures the accurate identification of individuals without the cholera condition. Therefore, Model 3 is recommended for further analysis and deployment, as it can provide more precise classifications and reduce the risk of false negatives in the cholera diagnosis process.
