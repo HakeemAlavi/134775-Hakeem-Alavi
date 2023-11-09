@@ -316,7 +316,7 @@ View(cholera_imputed_cov)
 cholera_imputed_cor <- cor(cholera_imputed [c(1, 2, 3, 4, 5, 6, 7, 8)])
 View(cholera_imputed_cor)
 
-# Data Transformation and----
+# Data Transformation ----
 
 class_distribution <- table(cholera_imputed$choleraDiagnosis)
 print(class_distribution)
@@ -585,3 +585,44 @@ saveRDS(cholera_caret_model_logistic_two, "Cholera_Model/cholera_model_two.rds")
 # The regularization approach used in this model aids in preventing overfitting, 
 # ensuring generalizability to unseen data.
 # Therefore, Logistic Regression 2 is the preferred model for the classification task at hand.
+
+# Hyperparameter Tuning ----
+
+library(caret)
+
+# Create a grid for tuning
+
+grid <- expand.grid(alpha = 0:1, lambda = seq(0.001, 0.1, by = 0.001))
+
+# Tune the model
+
+cholera_caret_model_logistic_two_tuned <- train(
+  choleraDiagnosis ~ ., 
+  data = cholera_train,
+  method = "glmnet",
+  family = "binomial",
+  metric = "Accuracy",
+  preProcess = c("center", "scale"),
+  trControl = trainControl(method = "cv", number = 5, verboseIter = TRUE),
+  maxit = 1000,
+  tuneGrid = grid
+)
+
+print(cholera_caret_model_logistic_two_tuned)
+
+# Make predictions
+cholera_predictions_lr_two_tuned <- predict(cholera_caret_model_logistic_two_tuned,
+                                      cholera_test)
+
+# Display the model's evaluation metrics
+cholera_confusion_matrix_lr_two_tuned <- caret::confusionMatrix(cholera_predictions_lr_two_tuned,
+                                                          cholera_test$choleraDiagnosis)
+print(cholera_confusion_matrix_lr_two_tuned)
+
+# Display Confusion Matrix
+fourfoldplot(as.table(cholera_confusion_matrix_lr_two_tuned), color = c("grey", "lightblue"),
+             main = "Confusion Matrix (LR 2 Tuned)")
+
+# Conclusion
+# The hyperparameter tuning did not elicit any improvement on the current model of 
+# choice (Logistic Regression 2) thus has not realized any additional benefit
