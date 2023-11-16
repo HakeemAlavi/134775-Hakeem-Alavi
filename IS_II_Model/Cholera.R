@@ -21,7 +21,7 @@ dim(cholera)
 sapply(cholera, class)
 
 # Descriptive Statistics ----
-# Measures of frequency
+## Measures of frequency ----
 
 cholera_freq <- cholera$male
 cbind(frequency = table(cholera_freq),
@@ -55,7 +55,7 @@ cholera_freq <- cholera$choleraDiagnosis
 cbind(frequency = table(cholera_freq),
       percentage = prop.table(table(cholera_freq)) *100)
 
-# Measures of central tendency - Mode
+## Measures of central tendency - Mode ----
 
 cholera_male_mode <- names(table(cholera$male))[
   which(table(cholera$male) == max(table(cholera$male)))
@@ -282,7 +282,7 @@ vis_miss(cholera_imputed) + theme(axis.text.x = element_text(angle = 80))
 
 # gg_miss_upset(cholera_imputed)
 
-## Measures of distribution ----
+## Measures of Distribution ----
 # Standard Deviation
 
 sapply(cholera[, c(1, 2, 3, 4, 5, 6, 7, 8)], sd)
@@ -306,6 +306,7 @@ sapply(cholera_imputed[, c(1, 2, 3, 4, 5, 6, 7, 8)],kurtosis, type=2)
 
 sapply(cholera_imputed[, c(1, 2, 3, 4, 5, 6, 7, 8)],skewness, type=2)
 
+## Measure of Relationship ----
 # Covariance
 
 cholera_imputed_cov <- cov(cholera_imputed [c(1, 2, 3, 4, 5, 6, 7, 8)])
