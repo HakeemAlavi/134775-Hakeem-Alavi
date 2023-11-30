@@ -271,34 +271,48 @@ require_once "controllerUserData.php";
         }
     </script>
     </div>
-            <div class="card">
-                <h4 style="color:black;">Previous Score</h4><br>
-                <?php
-                    $email = $_SESSION['email'];
-                    if ($email != false) {
-                        $sql = "SELECT * FROM usertable WHERE email = '$email'";
-                        $run_Sql = mysqli_query($con, $sql);
-                        if ($run_Sql) {
-                            $fetch_info = mysqli_fetch_assoc($run_Sql);
-                            $user_id = $fetch_info['id'];
-                    
-                            // Fetch the user's score
-                            $user_quiz_query = "SELECT score FROM userquiz WHERE user_id = '$user_id'";
-                            $run_user_quiz_query = mysqli_query($con, $user_quiz_query);
+    <div class="card">
+    <h4 style="color:black;">Previous Score</h4><br>
+    <?php
+    $email = $_SESSION['email'];
+    if ($email != false) {
+        $sql = "SELECT * FROM usertable WHERE email = '$email'";
+        $run_Sql = mysqli_query($con, $sql);
+        if ($run_Sql) {
+            $fetch_info = mysqli_fetch_assoc($run_Sql);
+            $user_id = $fetch_info['id'];
 
-                            if ($run_user_quiz_query && mysqli_num_rows($run_user_quiz_query) > 0) {
-                                $user_quiz_data = mysqli_fetch_assoc($run_user_quiz_query);
-                                $user_quiz = $user_quiz_data['score'];
+            // Fetch the user's score
+            $user_quiz_query = "SELECT score FROM userquiz WHERE user_id = '$user_id'";
+            $run_user_quiz_query = mysqli_query($con, $user_quiz_query);
 
-                                echo "<p style='color: black;'>Your previous score was: $user_quiz/15</p>";
-                            } else {
-                                // If no review found, display a message
-                                echo "<p style='color: black;'>No quiz taken yet.</p>";
-                            }
-                        }
-                    }
-                    ?>
-            </div>
+            if ($run_user_quiz_query && mysqli_num_rows($run_user_quiz_query) > 0) {
+                $user_quiz_data = mysqli_fetch_assoc($run_user_quiz_query);
+                $user_quiz = $user_quiz_data['score'];
+
+                // Determine competence level based on score
+                $competence_level = '';
+                if ($user_quiz >= 1 && $user_quiz <= 5) {
+                    $competence_level = 'WEAK<br>Risk of contracting a food-borne illness is Extremely High';
+                } elseif ($user_quiz >= 6 && $user_quiz <= 9) {
+                    $competence_level = 'AVERAGE<br>Risk of contracting a food-borne illness is Moderately High';
+                } elseif ($user_quiz >= 10 && $user_quiz <= 12) {
+                    $competence_level = 'GOOD<br>Risk of contracting a food-borne illness is Low';
+                } elseif ($user_quiz >= 13 && $user_quiz <= 15) {
+                    $competence_level = 'EXCEPTIONAL<br>Risk of contracting a food-borne illness is Exceptionally Low';
+                }
+
+                echo "<p style='color: black;'>Your previous score was: $user_quiz/15</p>";
+                echo "<p style='color: black;'>Your competence level is $competence_level</p>";
+            } else {
+                // If no review found, display a message
+                echo "<p style='color: black;'>No quiz taken yet.</p>";
+            }
+        }
+    }
+    ?>
+</div>
+
 
     <aside class="sidebar">
       <div class="logo">

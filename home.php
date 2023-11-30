@@ -237,20 +237,35 @@ if($email != false && $password != false){
 <div class="info-section">
     <h2>Key Principles of Proper Hygiene and Sanitation</h2><br>
     <p>The recommended duration for washing hands prior to handling food or eating and post bathroom usage is 30 seconds, and one should use clean water and soap to maximize disinfection.</p>
+    <img src="media/Illustration1.png" style="width:250px;height:25opx; margin: 20px;"></a></br></br>
     <p>Store cooked food in airtight containers to maintain its freshness and prevent contamination. Avoid storing it at room temperature, in an open container, or in direct sunlight.</p>
+    <img src="media/Illustration2.png" style="width:250px;height:25opx; margin: 20px;"></a></br></br>
     <p>Disinfect fruits and vegetables using a vinegar solution to ensure the removal of any harmful bacteria or contaminants present on their surfaces.</p>
-    <p>Kitchen towels should be washed daily to avoid the spread of germs and bacteria that can lead to foodborne illnesses.</p>
+    <img src="media/Illustration3.png" style="width:250px;height:25opx; margin: 20px;"></a></br></br>
+    <p>Kitchen towels should be washed daily to avoid the spread of germs and bacteria that can lead to food-borne illnesses.</p>
+    <img src="media/Illustration4.png" style="width:250px;height:25opx; margin: 20px;"></a></br></br>
     <p>Maintain the refrigerator temperature at 5°C (41°F) to preserve perishable foods properly and prevent the growth of harmful bacteria.</p>
-    <p>Dispose of expired food items properly instead of using them, donating them, or storing them, as they can be a source of foodborne illnesses.</p>
+    <img src="media/Illustration5.png" style="width:250px;height:25opx; margin: 20px;"></a></br></br>
+    <p>Dispose of expired food items properly instead of using them, donating them, or storing them, as they can be a source of food-borne illnesses.</p>
+    <img src="media/Illustration6.png" style="width:250px;height:25opx; margin: 20px;"></a></br></br>
     <p>Regularly clean your refrigerator, preferably once a month, to ensure the removal of any potential sources of contamination and to maintain a hygienic food storage environment.</p>
+    <img src="media/Illustration7.png" style="width:250px;height:25opx; margin: 20px;"></a></br></br>
     <p>Prevent pests in the kitchen by keeping the area clean and dry. Avoid using chemical sprays and opt for natural prevention methods whenever possible.</p>
+    <img src="media/Illustration8.png" style="width:250px;height:25opx; margin: 20px;"></a></br></br>
     <p>Thaw raw meat in the refrigerator to maintain its freshness and prevent the growth of harmful bacteria. Avoid thawing it on the counter, in hot water, or in the microwave.</p>
+    <img src="media/Illustration9.png" style="width:250px;height:25opx; margin: 20px;"></a></br></br>
     <p>Use a disinfectant cleaner to effectively remove germs from various surfaces in your living space, especially in areas where food is prepared or stored.</p>
+    <img src="media/Illustration10.png" style="width:250px;height:25opx; margin: 20px;"></a></br></br>
     <p>Before and after handling food, always remember to wash your hands thoroughly with soap and clean water to prevent the spread of harmful bacteria and viruses.</p>
-    <p>Cook most meats at a temperature of 165°C (329°F) to ensure that they are thoroughly cooked and free from any harmful bacteria that could cause foodborne illnesses.</p>
+    <img src="media/Illustration11.png" style="width:250px;height:25opx; margin: 20px;"></a></br></br>
+    <p>Cook most meats at a temperature of 165°C (329°F) to ensure that they are thoroughly cooked and free from any harmful bacteria that could cause food-borne illnesses.</p>
+    <img src="media/Illustration12.png" style="width:250px;height:25opx; margin: 20px;"></a></br></br>
     <p>Use plastic cutting boards, as they are easier to clean and sanitize compared to other materials such as wood, marble, or glass.</p>
+    <img src="media/Illustration13.png" style="width:250px;height:25opx; margin: 20px;"></a></br></br>
     <p>Properly clean the cutting board with soap and water after cutting raw meat to avoid cross-contamination between raw and cooked foods.</p>
-    <p>If you have a foodborne illness, consult a healthcare professional immediately for proper diagnosis and treatment instead of self-medicating or waiting for it to pass.</p>
+    <img src="media/Illustration14.png" style="width:250px;height:25opx; margin: 20px;"></a></br></br>
+    <p>If you have a food-borne illness, consult a healthcare professional immediately for proper diagnosis and treatment instead of self-medicating or waiting for it to pass.</p>
+    <img src="media/Illustration15.png" style="width:250px;height:25opx; margin: 20px;"></a></br></br>
 </div>
 
             <!-- Add more informative sections as needed -->
